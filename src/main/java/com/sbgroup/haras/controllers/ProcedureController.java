@@ -28,18 +28,18 @@ public class ProcedureController {
         return procedureService.getAllProcedures();
     }
 
-    @GetMapping("/id/{id}")
+    @GetMapping("/{id}")
     public ResponseEntity<Object> getProcedureById(@PathVariable(value = "id") UUID procedureId) {
         return procedureService.getProcedureById(procedureId);
     }
 
-    @PutMapping("/id/{id}")
+    @PutMapping("/{id}")
     public ResponseEntity<Object> updateProcedureById(@RequestBody @Valid ProcedureRecordDTO procedureDto,
                                                   @PathVariable(value = "id") UUID procedureId) {
         return procedureService.updateProcedureById(procedureDto, procedureId);
     }
 
-    @DeleteMapping("/id/{id}")
+    @DeleteMapping("/{id}")
     public ResponseEntity<Object> deleteProcedureById(@PathVariable(value = "id") UUID procedureId) {
         return procedureService.deleteProcedureById(procedureId);
     }

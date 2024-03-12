@@ -28,18 +28,18 @@ public class FarmController {
         return farmService.getAllFarms();
     }
 
-    @GetMapping("/id/{id}")
+    @GetMapping("/{id}")
     public ResponseEntity<Object> getFarmById(@PathVariable(value = "id") UUID farmId) {
         return farmService.getFarmById(farmId);
     }
 
-    @PutMapping("/id/{id}")
+    @PutMapping("/{id}")
     public ResponseEntity<Object> updateFarmById(@RequestBody @Valid FarmRecordDTO farmDto,
                                                   @PathVariable(value = "id") UUID farmId) {
         return farmService.updateFarmById(farmDto, farmId);
     }
 
-    @DeleteMapping("/id/{id}")
+    @DeleteMapping("/{id}")
     public ResponseEntity<Object> deleteFarmById(@PathVariable(value = "id") UUID farmId) {
         return farmService.deleteFarmById(farmId);
     }

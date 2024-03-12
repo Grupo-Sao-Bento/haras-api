@@ -28,18 +28,18 @@ public class ClientController {
         return clientService.getAllClients();
     }
 
-    @GetMapping("/id/{id}")
+    @GetMapping("/{id}")
     public ResponseEntity<Object> getClientById(@PathVariable(value = "id") UUID clientId) {
         return clientService.getClientById(clientId);
     }
 
-    @PutMapping("/id/{id}")
+    @PutMapping("/{id}")
     public ResponseEntity<Object> updateClientById(@RequestBody @Valid ClientRecordDTO clientDto,
                                                   @PathVariable(value = "id") UUID clientId) {
         return clientService.updateClientById(clientDto, clientId);
     }
 
-    @DeleteMapping("/id/{id}")
+    @DeleteMapping("/{id}")
     public ResponseEntity<Object> deleteClientById(@PathVariable(value = "id") UUID clientId) {
         return clientService.deleteClientById(clientId);
     }

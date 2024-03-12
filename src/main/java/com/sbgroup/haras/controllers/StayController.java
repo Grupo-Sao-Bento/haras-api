@@ -28,18 +28,18 @@ public class StayController {
         return stayService.getAllStays();
     }
 
-    @GetMapping("/id/{id}")
+    @GetMapping("/{id}")
     public ResponseEntity<Object> getStayById(@PathVariable(value = "id") UUID stayId) {
         return stayService.getStayById(stayId);
     }
 
-    @PutMapping("/id/{id}")
+    @PutMapping("/{id}")
     public ResponseEntity<Object> updateStayById(@RequestBody @Valid StayRecordDTO stayDto,
                                                   @PathVariable(value = "id") UUID stayId) {
         return stayService.updateStayById(stayDto, stayId);
     }
 
-    @DeleteMapping("/id/{id}")
+    @DeleteMapping("/{id}")
     public ResponseEntity<Object> deleteStayById(@PathVariable(value = "id") UUID stayId) {
         return stayService.deleteStayById(stayId);
     }

@@ -28,18 +28,18 @@ public class UserController {
         return userService.getAllUsers();
     }
 
-    @GetMapping("/id/{id}")
+    @GetMapping("/{id}")
     public ResponseEntity<Object> getUserById(@PathVariable(value = "id") UUID userId) {
         return userService.getUserById(userId);
     }
 
-    @PutMapping("/id/{id}")
+    @PutMapping("/{id}")
     public ResponseEntity<Object> updateUserById(@RequestBody @Valid UserRecordDTO userDto,
                                                   @PathVariable(value = "id") UUID userId) {
         return userService.updateUserById(userDto, userId);
     }
 
-    @DeleteMapping("/id/{id}")
+    @DeleteMapping("/{id}")
     public ResponseEntity<Object> deleteUserById(@PathVariable(value = "id") UUID userId) {
         return userService.deleteUserById(userId);
     }

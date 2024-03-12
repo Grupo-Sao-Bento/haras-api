@@ -28,18 +28,18 @@ public class GroupController {
         return groupService.getAllGroups();
     }
 
-    @GetMapping("/id/{id}")
+    @GetMapping("/{id}")
     public ResponseEntity<Object> getGroupById(@PathVariable(value = "id") UUID groupId) {
         return groupService.getGroupById(groupId);
     }
 
-    @PutMapping("/id/{id}")
+    @PutMapping("/{id}")
     public ResponseEntity<Object> updateGroupById(@RequestBody @Valid GroupRecordDTO groupDto,
                                                   @PathVariable(value = "id") UUID groupId) {
         return groupService.updateGroupById(groupDto, groupId);
     }
 
-    @DeleteMapping("/id/{id}")
+    @DeleteMapping("/{id}")
     public ResponseEntity<Object> deleteGroupById(@PathVariable(value = "id") UUID groupId) {
         return groupService.deleteGroupById(groupId);
     }

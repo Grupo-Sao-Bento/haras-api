@@ -28,18 +28,18 @@ public class HorseController {
         return horseService.getAllHorses();
     }
 
-    @GetMapping("/id/{id}")
+    @GetMapping("/{id}")
     public ResponseEntity<Object> getHorseById(@PathVariable(value = "id") UUID horseId) {
         return horseService.getHorseById(horseId);
     }
 
-    @PutMapping("/id/{id}")
+    @PutMapping("/{id}")
     public ResponseEntity<Object> updateHorseById(@RequestBody @Valid HorseRecordDTO horseDto,
                                                   @PathVariable(value = "id") UUID horseId) {
         return horseService.updateHorseById(horseDto, horseId);
     }
 
-    @DeleteMapping("/id/{id}")
+    @DeleteMapping("/{id}")
     public ResponseEntity<Object> deleteHorseById(@PathVariable(value = "id") UUID horseId) {
         return horseService.deleteHorseById(horseId);
     }

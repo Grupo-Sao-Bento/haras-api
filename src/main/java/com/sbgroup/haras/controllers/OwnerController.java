@@ -28,18 +28,18 @@ public class OwnerController {
         return ownerService.getAllOwners();
     }
 
-    @GetMapping("/id/{id}")
+    @GetMapping("/{id}")
     public ResponseEntity<Object> getOwnerById(@PathVariable(value = "id") UUID ownerId) {
         return ownerService.getOwnerById(ownerId);
     }
 
-    @PutMapping("/id/{id}")
+    @PutMapping("/{id}")
     public ResponseEntity<Object> updateOwnerById(@RequestBody @Valid OwnerRecordDTO ownerDto,
                                                   @PathVariable(value = "id") UUID ownerId) {
         return ownerService.updateOwnerById(ownerDto, ownerId);
     }
 
-    @DeleteMapping("/id/{id}")
+    @DeleteMapping("/{id}")
     public ResponseEntity<Object> deleteOwnerById(@PathVariable(value = "id") UUID ownerId) {
         return ownerService.deleteOwnerById(ownerId);
     }
