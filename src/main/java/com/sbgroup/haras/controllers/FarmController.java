@@ -14,33 +14,33 @@ import java.util.UUID;
 @RestController
 @RequestMapping("/farms")
 public class FarmController {
-
-    @Autowired()
-    FarmService farmService;
-
-    @PostMapping()
-    public ResponseEntity<FarmModel> saveFarm(@RequestBody @Valid FarmRecordDTO newFarmDto) {
-        return farmService.saveFarm(newFarmDto);
-    }
-
-    @GetMapping()
-    public ResponseEntity<List<FarmModel>> getAllFarms() {
-        return farmService.getAllFarms();
-    }
-
-    @GetMapping("/{id}")
-    public ResponseEntity<Object> getFarmById(@PathVariable(value = "id") UUID farmId) {
-        return farmService.getFarmById(farmId);
-    }
-
-    @PutMapping("/{id}")
-    public ResponseEntity<Object> updateFarmById(@RequestBody @Valid FarmRecordDTO farmDto,
-                                                  @PathVariable(value = "id") UUID farmId) {
-        return farmService.updateFarmById(farmDto, farmId);
-    }
-
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Object> deleteFarmById(@PathVariable(value = "id") UUID farmId) {
-        return farmService.deleteFarmById(farmId);
-    }
+  
+  @Autowired()
+  FarmService farmService;
+  
+  @PostMapping()
+  public ResponseEntity<FarmModel> saveFarm(@RequestBody @Valid FarmRecordDTO newFarmDto) {
+    return farmService.saveFarm(newFarmDto);
+  }
+  
+  @GetMapping()
+  public ResponseEntity<List<FarmModel>> getAllFarms() {
+    return farmService.getAllFarms();
+  }
+  
+  @GetMapping("/{id}")
+  public ResponseEntity<Object> getFarmById(@PathVariable(value = "id") UUID farmId) {
+    return farmService.getFarmById(farmId);
+  }
+  
+  @PutMapping("/{id}")
+  public ResponseEntity<Object> updateFarmById(@RequestBody @Valid FarmRecordDTO farmDto,
+                                               @PathVariable(value = "id") UUID farmId) {
+    return farmService.updateFarmById(farmDto, farmId);
+  }
+  
+  @DeleteMapping("/{id}")
+  public ResponseEntity<Object> deleteFarmById(@PathVariable(value = "id") UUID farmId) {
+    return farmService.deleteFarmById(farmId);
+  }
 }

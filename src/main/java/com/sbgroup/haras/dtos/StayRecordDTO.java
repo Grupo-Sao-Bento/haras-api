@@ -5,6 +5,6 @@ import jakarta.validation.constraints.NotNull;
 import java.sql.Timestamp;
 
 public record StayRecordDTO(
-        @NotNull Timestamp ingress,
-        @NotNull Timestamp egress ) {
+  @NotNull Timestamp ingress,
+  @NotNull Timestamp egress) {
 }

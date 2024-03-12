@@ -14,33 +14,33 @@ import java.util.UUID;
 @RestController
 @RequestMapping("/stays")
 public class StayController {
-
-    @Autowired()
-    StayService stayService;
-
-    @PostMapping()
-    public ResponseEntity<StayModel> saveStay(@RequestBody @Valid StayRecordDTO newStayDto) {
-        return stayService.saveStay(newStayDto);
-    }
-
-    @GetMapping()
-    public ResponseEntity<List<StayModel>> getAllStays() {
-        return stayService.getAllStays();
-    }
-
-    @GetMapping("/{id}")
-    public ResponseEntity<Object> getStayById(@PathVariable(value = "id") UUID stayId) {
-        return stayService.getStayById(stayId);
-    }
-
-    @PutMapping("/{id}")
-    public ResponseEntity<Object> updateStayById(@RequestBody @Valid StayRecordDTO stayDto,
-                                                  @PathVariable(value = "id") UUID stayId) {
-        return stayService.updateStayById(stayDto, stayId);
-    }
-
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Object> deleteStayById(@PathVariable(value = "id") UUID stayId) {
-        return stayService.deleteStayById(stayId);
-    }
+  
+  @Autowired()
+  StayService stayService;
+  
+  @PostMapping()
+  public ResponseEntity<StayModel> saveStay(@RequestBody @Valid StayRecordDTO newStayDto) {
+    return stayService.saveStay(newStayDto);
+  }
+  
+  @GetMapping()
+  public ResponseEntity<List<StayModel>> getAllStays() {
+    return stayService.getAllStays();
+  }
+  
+  @GetMapping("/{id}")
+  public ResponseEntity<Object> getStayById(@PathVariable(value = "id") UUID stayId) {
+    return stayService.getStayById(stayId);
+  }
+  
+  @PutMapping("/{id}")
+  public ResponseEntity<Object> updateStayById(@RequestBody @Valid StayRecordDTO stayDto,
+                                               @PathVariable(value = "id") UUID stayId) {
+    return stayService.updateStayById(stayDto, stayId);
+  }
+  
+  @DeleteMapping("/{id}")
+  public ResponseEntity<Object> deleteStayById(@PathVariable(value = "id") UUID stayId) {
+    return stayService.deleteStayById(stayId);
+  }
 }

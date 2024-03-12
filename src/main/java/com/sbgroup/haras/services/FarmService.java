@@ -16,53 +16,53 @@ import java.util.UUID;
 
 @Service
 public class FarmService {
-
-    @Autowired()
-    FarmRepository farmRepository;
-
-    @Transactional()
-    public ResponseEntity<FarmModel> saveFarm(FarmRecordDTO newFarmDto) {
-        var newFarmModel = new FarmModel();
-        BeanUtils.copyProperties(newFarmDto, newFarmModel);
-        return ResponseEntity.status(HttpStatus.CREATED).body(farmRepository.save(newFarmModel));
+  
+  @Autowired()
+  FarmRepository farmRepository;
+  
+  @Transactional()
+  public ResponseEntity<FarmModel> saveFarm(FarmRecordDTO newFarmDto) {
+    var newFarmModel = new FarmModel();
+    BeanUtils.copyProperties(newFarmDto, newFarmModel);
+    return ResponseEntity.status(HttpStatus.CREATED).body(farmRepository.save(newFarmModel));
+  }
+  
+  public ResponseEntity<List<FarmModel>> getAllFarms() {
+    return ResponseEntity.status(HttpStatus.OK).body(farmRepository.findAll());
+  }
+  
+  public ResponseEntity<Object> getFarmById(UUID farmId) {
+    Optional<FarmModel> farmModel = farmRepository.findById(farmId);
+    
+    if (farmModel.isEmpty()) {
+      return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Farm id not found");
     }
-
-    public ResponseEntity<List<FarmModel>> getAllFarms() {
-        return ResponseEntity.status(HttpStatus.OK).body(farmRepository.findAll());
+    
+    return ResponseEntity.status(HttpStatus.OK).body(farmModel);
+  }
+  
+  @Transactional()
+  public ResponseEntity<Object> updateFarmById(FarmRecordDTO farmDto, UUID farmId) {
+    Optional<FarmModel> farmModel = farmRepository.findById(farmId);
+    
+    if (farmModel.isEmpty()) {
+      return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Farm id not found");
     }
-
-    public ResponseEntity<Object> getFarmById(UUID farmId) {
-        Optional<FarmModel> farmModel = farmRepository.findById(farmId);
-
-        if (farmModel.isEmpty()) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Farm id not found");
-        }
-
-        return ResponseEntity.status(HttpStatus.OK).body(farmModel);
+    
+    var updatedFarm = farmModel.get();
+    BeanUtils.copyProperties(farmDto, updatedFarm);
+    return ResponseEntity.status(HttpStatus.OK).body(farmRepository.save(updatedFarm));
+  }
+  
+  @Transactional()
+  public ResponseEntity<Object> deleteFarmById(UUID farmId) {
+    Optional<FarmModel> farmModel = farmRepository.findById(farmId);
+    
+    if (farmModel.isEmpty()) {
+      return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Farm id not found");
     }
-
-    @Transactional()
-    public ResponseEntity<Object> updateFarmById(FarmRecordDTO farmDto, UUID farmId) {
-        Optional<FarmModel> farmModel = farmRepository.findById(farmId);
-
-        if (farmModel.isEmpty()) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Farm id not found");
-        }
-
-        var updatedFarm = farmModel.get();
-        BeanUtils.copyProperties(farmDto, updatedFarm);
-        return ResponseEntity.status(HttpStatus.OK).body(farmRepository.save(updatedFarm));
-    }
-
-    @Transactional()
-    public ResponseEntity<Object> deleteFarmById(UUID farmId) {
-        Optional<FarmModel> farmModel = farmRepository.findById(farmId);
-
-        if (farmModel.isEmpty()) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Farm id not found");
-        }
-
-        farmRepository.delete(farmModel.get());
-        return ResponseEntity.status(HttpStatus.OK).body("Farm deleted successfuly");
-    }
+    
+    farmRepository.delete(farmModel.get());
+    return ResponseEntity.status(HttpStatus.OK).body("Farm deleted successfuly");
+  }
 }

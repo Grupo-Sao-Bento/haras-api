@@ -16,53 +16,53 @@ import java.util.UUID;
 
 @Service
 public class HorseService {
-
-    @Autowired()
-    HorseRepository horseRepository;
-
-    @Transactional()
-    public ResponseEntity<HorseModel> saveHorse(HorseRecordDTO newHorseDto) {
-        var newHorseModel = new HorseModel();
-        BeanUtils.copyProperties(newHorseDto, newHorseModel);
-        return ResponseEntity.status(HttpStatus.CREATED).body(horseRepository.save(newHorseModel));
+  
+  @Autowired()
+  HorseRepository horseRepository;
+  
+  @Transactional()
+  public ResponseEntity<HorseModel> saveHorse(HorseRecordDTO newHorseDto) {
+    var newHorseModel = new HorseModel();
+    BeanUtils.copyProperties(newHorseDto, newHorseModel);
+    return ResponseEntity.status(HttpStatus.CREATED).body(horseRepository.save(newHorseModel));
+  }
+  
+  public ResponseEntity<List<HorseModel>> getAllHorses() {
+    return ResponseEntity.status(HttpStatus.OK).body(horseRepository.findAll());
+  }
+  
+  public ResponseEntity<Object> getHorseById(UUID horseId) {
+    Optional<HorseModel> horseModel = horseRepository.findById(horseId);
+    
+    if (horseModel.isEmpty()) {
+      return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Horse id not found");
     }
-
-    public ResponseEntity<List<HorseModel>> getAllHorses() {
-        return ResponseEntity.status(HttpStatus.OK).body(horseRepository.findAll());
+    
+    return ResponseEntity.status(HttpStatus.OK).body(horseModel);
+  }
+  
+  @Transactional()
+  public ResponseEntity<Object> updateHorseById(HorseRecordDTO horseDto, UUID horseId) {
+    Optional<HorseModel> horseModel = horseRepository.findById(horseId);
+    
+    if (horseModel.isEmpty()) {
+      return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Horse id not found");
     }
-
-    public ResponseEntity<Object> getHorseById(UUID horseId) {
-        Optional<HorseModel> horseModel = horseRepository.findById(horseId);
-
-        if (horseModel.isEmpty()) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Horse id not found");
-        }
-
-        return ResponseEntity.status(HttpStatus.OK).body(horseModel);
+    
+    var updatedHorse = horseModel.get();
+    BeanUtils.copyProperties(horseDto, updatedHorse);
+    return ResponseEntity.status(HttpStatus.OK).body(horseRepository.save(updatedHorse));
+  }
+  
+  @Transactional()
+  public ResponseEntity<Object> deleteHorseById(UUID horseId) {
+    Optional<HorseModel> horseModel = horseRepository.findById(horseId);
+    
+    if (horseModel.isEmpty()) {
+      return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Horse id not found");
     }
-
-    @Transactional()
-    public ResponseEntity<Object> updateHorseById(HorseRecordDTO horseDto, UUID horseId) {
-        Optional<HorseModel> horseModel = horseRepository.findById(horseId);
-
-        if (horseModel.isEmpty()) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Horse id not found");
-        }
-
-        var updatedHorse = horseModel.get();
-        BeanUtils.copyProperties(horseDto, updatedHorse);
-        return ResponseEntity.status(HttpStatus.OK).body(horseRepository.save(updatedHorse));
-    }
-
-    @Transactional()
-    public ResponseEntity<Object> deleteHorseById(UUID horseId) {
-        Optional<HorseModel> horseModel = horseRepository.findById(horseId);
-
-        if (horseModel.isEmpty()) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Horse id not found");
-        }
-
-        horseRepository.delete(horseModel.get());
-        return ResponseEntity.status(HttpStatus.OK).body("Horse deleted successfuly");
-    }
+    
+    horseRepository.delete(horseModel.get());
+    return ResponseEntity.status(HttpStatus.OK).body("Horse deleted successfuly");
+  }
 }

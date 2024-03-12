@@ -16,53 +16,53 @@ import java.util.UUID;
 
 @Service
 public class ClientService {
-
-    @Autowired()
-    ClientRepository clientRepository;
-
-    @Transactional()
-    public ResponseEntity<ClientModel> saveClient(ClientRecordDTO newClientDto) {
-        var newClientModel = new ClientModel();
-        BeanUtils.copyProperties(newClientDto, newClientModel);
-        return ResponseEntity.status(HttpStatus.CREATED).body(clientRepository.save(newClientModel));
+  
+  @Autowired()
+  ClientRepository clientRepository;
+  
+  @Transactional()
+  public ResponseEntity<ClientModel> saveClient(ClientRecordDTO newClientDto) {
+    var newClientModel = new ClientModel();
+    BeanUtils.copyProperties(newClientDto, newClientModel);
+    return ResponseEntity.status(HttpStatus.CREATED).body(clientRepository.save(newClientModel));
+  }
+  
+  public ResponseEntity<List<ClientModel>> getAllClients() {
+    return ResponseEntity.status(HttpStatus.OK).body(clientRepository.findAll());
+  }
+  
+  public ResponseEntity<Object> getClientById(UUID clientId) {
+    Optional<ClientModel> clientModel = clientRepository.findById(clientId);
+    
+    if (clientModel.isEmpty()) {
+      return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Client id not found");
     }
-
-    public ResponseEntity<List<ClientModel>> getAllClients() {
-        return ResponseEntity.status(HttpStatus.OK).body(clientRepository.findAll());
+    
+    return ResponseEntity.status(HttpStatus.OK).body(clientModel);
+  }
+  
+  @Transactional()
+  public ResponseEntity<Object> updateClientById(ClientRecordDTO clientDto, UUID clientId) {
+    Optional<ClientModel> clientModel = clientRepository.findById(clientId);
+    
+    if (clientModel.isEmpty()) {
+      return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Client id not found");
     }
-
-    public ResponseEntity<Object> getClientById(UUID clientId) {
-        Optional<ClientModel> clientModel = clientRepository.findById(clientId);
-
-        if (clientModel.isEmpty()) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Client id not found");
-        }
-
-        return ResponseEntity.status(HttpStatus.OK).body(clientModel);
+    
+    var updatedClient = clientModel.get();
+    BeanUtils.copyProperties(clientDto, updatedClient);
+    return ResponseEntity.status(HttpStatus.OK).body(clientRepository.save(updatedClient));
+  }
+  
+  @Transactional()
+  public ResponseEntity<Object> deleteClientById(UUID clientId) {
+    Optional<ClientModel> clientModel = clientRepository.findById(clientId);
+    
+    if (clientModel.isEmpty()) {
+      return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Client id not found");
     }
-
-    @Transactional()
-    public ResponseEntity<Object> updateClientById(ClientRecordDTO clientDto, UUID clientId) {
-        Optional<ClientModel> clientModel = clientRepository.findById(clientId);
-
-        if (clientModel.isEmpty()) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Client id not found");
-        }
-
-        var updatedClient = clientModel.get();
-        BeanUtils.copyProperties(clientDto, updatedClient);
-        return ResponseEntity.status(HttpStatus.OK).body(clientRepository.save(updatedClient));
-    }
-
-    @Transactional()
-    public ResponseEntity<Object> deleteClientById(UUID clientId) {
-        Optional<ClientModel> clientModel = clientRepository.findById(clientId);
-
-        if (clientModel.isEmpty()) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Client id not found");
-        }
-
-        clientRepository.delete(clientModel.get());
-        return ResponseEntity.status(HttpStatus.OK).body("Client deleted successfuly");
-    }
+    
+    clientRepository.delete(clientModel.get());
+    return ResponseEntity.status(HttpStatus.OK).body("Client deleted successfuly");
+  }
 }

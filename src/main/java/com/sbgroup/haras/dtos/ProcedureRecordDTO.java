@@ -5,5 +5,5 @@ import jakarta.validation.constraints.NotNull;
 import java.sql.Timestamp;
 
 public record ProcedureRecordDTO(
-        @NotNull Timestamp date ) {
+  @NotNull Timestamp date) {
 }

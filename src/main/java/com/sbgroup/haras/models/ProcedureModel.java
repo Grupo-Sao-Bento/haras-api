@@ -15,11 +15,14 @@ import java.util.UUID;
 @Entity
 @Table(name = "Procedures")
 public class ProcedureModel implements Serializable {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private UUID procedureId;
-    // procedureType
-    private Timestamp date;
-    // userId
+  
+  @Id
+  @GeneratedValue(strategy = GenerationType.AUTO)
+  private UUID procedureId;
+  
+  // procedureType
+  
+  private Timestamp date;
+  
+  // userId
 }

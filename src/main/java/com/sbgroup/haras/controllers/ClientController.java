@@ -14,33 +14,33 @@ import java.util.UUID;
 @RestController
 @RequestMapping("/clients")
 public class ClientController {
-
-    @Autowired()
-    ClientService clientService;
-
-    @PostMapping()
-    public ResponseEntity<ClientModel> saveClient(@RequestBody @Valid ClientRecordDTO newClientDto) {
-        return clientService.saveClient(newClientDto);
-    }
-
-    @GetMapping()
-    public ResponseEntity<List<ClientModel>> getAllClients() {
-        return clientService.getAllClients();
-    }
-
-    @GetMapping("/{id}")
-    public ResponseEntity<Object> getClientById(@PathVariable(value = "id") UUID clientId) {
-        return clientService.getClientById(clientId);
-    }
-
-    @PutMapping("/{id}")
-    public ResponseEntity<Object> updateClientById(@RequestBody @Valid ClientRecordDTO clientDto,
-                                                  @PathVariable(value = "id") UUID clientId) {
-        return clientService.updateClientById(clientDto, clientId);
-    }
-
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Object> deleteClientById(@PathVariable(value = "id") UUID clientId) {
-        return clientService.deleteClientById(clientId);
-    }
+  
+  @Autowired()
+  ClientService clientService;
+  
+  @PostMapping()
+  public ResponseEntity<ClientModel> saveClient(@RequestBody @Valid ClientRecordDTO newClientDto) {
+    return clientService.saveClient(newClientDto);
+  }
+  
+  @GetMapping()
+  public ResponseEntity<List<ClientModel>> getAllClients() {
+    return clientService.getAllClients();
+  }
+  
+  @GetMapping("/{id}")
+  public ResponseEntity<Object> getClientById(@PathVariable(value = "id") UUID clientId) {
+    return clientService.getClientById(clientId);
+  }
+  
+  @PutMapping("/{id}")
+  public ResponseEntity<Object> updateClientById(@RequestBody @Valid ClientRecordDTO clientDto,
+                                                 @PathVariable(value = "id") UUID clientId) {
+    return clientService.updateClientById(clientDto, clientId);
+  }
+  
+  @DeleteMapping("/{id}")
+  public ResponseEntity<Object> deleteClientById(@PathVariable(value = "id") UUID clientId) {
+    return clientService.deleteClientById(clientId);
+  }
 }

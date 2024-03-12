@@ -16,53 +16,53 @@ import java.util.UUID;
 
 @Service
 public class UserService {
-
-    @Autowired()
-    UserRepository userRepository;
-
-    @Transactional()
-    public ResponseEntity<UserModel> saveUser(UserRecordDTO newUserDto) {
-        var newUserModel = new UserModel();
-        BeanUtils.copyProperties(newUserDto, newUserModel);
-        return ResponseEntity.status(HttpStatus.CREATED).body(userRepository.save(newUserModel));
+  
+  @Autowired()
+  UserRepository userRepository;
+  
+  @Transactional()
+  public ResponseEntity<UserModel> saveUser(UserRecordDTO newUserDto) {
+    var newUserModel = new UserModel();
+    BeanUtils.copyProperties(newUserDto, newUserModel);
+    return ResponseEntity.status(HttpStatus.CREATED).body(userRepository.save(newUserModel));
+  }
+  
+  public ResponseEntity<List<UserModel>> getAllUsers() {
+    return ResponseEntity.status(HttpStatus.OK).body(userRepository.findAll());
+  }
+  
+  public ResponseEntity<Object> getUserById(UUID userId) {
+    Optional<UserModel> userModel = userRepository.findById(userId);
+    
+    if (userModel.isEmpty()) {
+      return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User id not found");
     }
-
-    public ResponseEntity<List<UserModel>> getAllUsers() {
-        return ResponseEntity.status(HttpStatus.OK).body(userRepository.findAll());
+    
+    return ResponseEntity.status(HttpStatus.OK).body(userModel);
+  }
+  
+  @Transactional()
+  public ResponseEntity<Object> updateUserById(UserRecordDTO userDto, UUID userId) {
+    Optional<UserModel> userModel = userRepository.findById(userId);
+    
+    if (userModel.isEmpty()) {
+      return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User id not found");
     }
-
-    public ResponseEntity<Object> getUserById(UUID userId) {
-        Optional<UserModel> userModel = userRepository.findById(userId);
-
-        if (userModel.isEmpty()) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User id not found");
-        }
-
-        return ResponseEntity.status(HttpStatus.OK).body(userModel);
+    
+    var updatedUser = userModel.get();
+    BeanUtils.copyProperties(userDto, updatedUser);
+    return ResponseEntity.status(HttpStatus.OK).body(userRepository.save(updatedUser));
+  }
+  
+  @Transactional()
+  public ResponseEntity<Object> deleteUserById(UUID userId) {
+    Optional<UserModel> userModel = userRepository.findById(userId);
+    
+    if (userModel.isEmpty()) {
+      return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User id not found");
     }
-
-    @Transactional()
-    public ResponseEntity<Object> updateUserById(UserRecordDTO userDto, UUID userId) {
-        Optional<UserModel> userModel = userRepository.findById(userId);
-
-        if (userModel.isEmpty()) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User id not found");
-        }
-
-        var updatedUser = userModel.get();
-        BeanUtils.copyProperties(userDto, updatedUser);
-        return ResponseEntity.status(HttpStatus.OK).body(userRepository.save(updatedUser));
-    }
-
-    @Transactional()
-    public ResponseEntity<Object> deleteUserById(UUID userId) {
-        Optional<UserModel> userModel = userRepository.findById(userId);
-
-        if (userModel.isEmpty()) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User id not found");
-        }
-
-        userRepository.delete(userModel.get());
-        return ResponseEntity.status(HttpStatus.OK).body("User deleted successfuly");
-    }
+    
+    userRepository.delete(userModel.get());
+    return ResponseEntity.status(HttpStatus.OK).body("User deleted successfuly");
+  }
 }

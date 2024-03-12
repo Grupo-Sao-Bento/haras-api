@@ -5,9 +5,9 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
 public class HarasApplication {
-
-	public static void main(String[] args) {
-		SpringApplication.run(HarasApplication.class, args);
-	}
-
+  
+  public static void main(String[] args) {
+    SpringApplication.run(HarasApplication.class, args);
+  }
+  
 }

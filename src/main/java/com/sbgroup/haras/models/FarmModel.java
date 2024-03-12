@@ -14,10 +14,12 @@ import java.util.UUID;
 @Entity
 @Table(name = "Farms")
 public class FarmModel implements Serializable {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private UUID farmId;
-    private String name;
-    // ownerId
+  
+  @Id
+  @GeneratedValue(strategy = GenerationType.AUTO)
+  private UUID farmId;
+  
+  private String name;
+  
+  // ownerId
 }

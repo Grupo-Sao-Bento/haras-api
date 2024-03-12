@@ -14,11 +14,14 @@ import java.util.UUID;
 @Entity
 @Table(name = "Owners")
 public class OwnerModel implements Serializable {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private UUID ownerId;
-    private boolean isGroup;
-    // clientId
-    // groupId
+  
+  @Id
+  @GeneratedValue(strategy = GenerationType.AUTO)
+  private UUID ownerId;
+  
+  private boolean isGroup;
+  
+  // clientId
+  
+  // groupId
 }

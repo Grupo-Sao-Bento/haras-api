@@ -16,53 +16,53 @@ import java.util.UUID;
 
 @Service
 public class GroupService {
-
-    @Autowired()
-    GroupRepository groupRepository;
-
-    @Transactional()
-    public ResponseEntity<GroupModel> saveGroup(GroupRecordDTO newGroupDto) {
-        var newGroupModel = new GroupModel();
-        BeanUtils.copyProperties(newGroupDto, newGroupModel);
-        return ResponseEntity.status(HttpStatus.CREATED).body(groupRepository.save(newGroupModel));
+  
+  @Autowired()
+  GroupRepository groupRepository;
+  
+  @Transactional()
+  public ResponseEntity<GroupModel> saveGroup(GroupRecordDTO newGroupDto) {
+    var newGroupModel = new GroupModel();
+    BeanUtils.copyProperties(newGroupDto, newGroupModel);
+    return ResponseEntity.status(HttpStatus.CREATED).body(groupRepository.save(newGroupModel));
+  }
+  
+  public ResponseEntity<List<GroupModel>> getAllGroups() {
+    return ResponseEntity.status(HttpStatus.OK).body(groupRepository.findAll());
+  }
+  
+  public ResponseEntity<Object> getGroupById(UUID groupId) {
+    Optional<GroupModel> groupModel = groupRepository.findById(groupId);
+    
+    if (groupModel.isEmpty()) {
+      return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Group id not found");
     }
-
-    public ResponseEntity<List<GroupModel>> getAllGroups() {
-        return ResponseEntity.status(HttpStatus.OK).body(groupRepository.findAll());
+    
+    return ResponseEntity.status(HttpStatus.OK).body(groupModel);
+  }
+  
+  @Transactional()
+  public ResponseEntity<Object> updateGroupById(GroupRecordDTO groupDto, UUID groupId) {
+    Optional<GroupModel> groupModel = groupRepository.findById(groupId);
+    
+    if (groupModel.isEmpty()) {
+      return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Group id not found");
     }
-
-    public ResponseEntity<Object> getGroupById(UUID groupId) {
-        Optional<GroupModel> groupModel = groupRepository.findById(groupId);
-
-        if (groupModel.isEmpty()) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Group id not found");
-        }
-
-        return ResponseEntity.status(HttpStatus.OK).body(groupModel);
+    
+    var updatedGroup = groupModel.get();
+    BeanUtils.copyProperties(groupDto, updatedGroup);
+    return ResponseEntity.status(HttpStatus.OK).body(groupRepository.save(updatedGroup));
+  }
+  
+  @Transactional()
+  public ResponseEntity<Object> deleteGroupById(UUID groupId) {
+    Optional<GroupModel> groupModel = groupRepository.findById(groupId);
+    
+    if (groupModel.isEmpty()) {
+      return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Group id not found");
     }
-
-    @Transactional()
-    public ResponseEntity<Object> updateGroupById(GroupRecordDTO groupDto, UUID groupId) {
-        Optional<GroupModel> groupModel = groupRepository.findById(groupId);
-
-        if (groupModel.isEmpty()) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Group id not found");
-        }
-
-        var updatedGroup = groupModel.get();
-        BeanUtils.copyProperties(groupDto, updatedGroup);
-        return ResponseEntity.status(HttpStatus.OK).body(groupRepository.save(updatedGroup));
-    }
-
-    @Transactional()
-    public ResponseEntity<Object> deleteGroupById(UUID groupId) {
-        Optional<GroupModel> groupModel = groupRepository.findById(groupId);
-
-        if (groupModel.isEmpty()) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Group id not found");
-        }
-
-        groupRepository.delete(groupModel.get());
-        return ResponseEntity.status(HttpStatus.OK).body("Group deleted successfuly");
-    }
+    
+    groupRepository.delete(groupModel.get());
+    return ResponseEntity.status(HttpStatus.OK).body("Group deleted successfuly");
+  }
 }

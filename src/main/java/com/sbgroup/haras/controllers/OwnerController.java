@@ -14,33 +14,33 @@ import java.util.UUID;
 @RestController
 @RequestMapping("/owners")
 public class OwnerController {
-
-    @Autowired()
-    OwnerService ownerService;
-
-    @PostMapping()
-    public ResponseEntity<OwnerModel> saveOwner(@RequestBody @Valid OwnerRecordDTO newOwnerDto) {
-        return ownerService.saveOwner(newOwnerDto);
-    }
-
-    @GetMapping()
-    public ResponseEntity<List<OwnerModel>> getAllOwners() {
-        return ownerService.getAllOwners();
-    }
-
-    @GetMapping("/{id}")
-    public ResponseEntity<Object> getOwnerById(@PathVariable(value = "id") UUID ownerId) {
-        return ownerService.getOwnerById(ownerId);
-    }
-
-    @PutMapping("/{id}")
-    public ResponseEntity<Object> updateOwnerById(@RequestBody @Valid OwnerRecordDTO ownerDto,
-                                                  @PathVariable(value = "id") UUID ownerId) {
-        return ownerService.updateOwnerById(ownerDto, ownerId);
-    }
-
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Object> deleteOwnerById(@PathVariable(value = "id") UUID ownerId) {
-        return ownerService.deleteOwnerById(ownerId);
-    }
+  
+  @Autowired()
+  OwnerService ownerService;
+  
+  @PostMapping()
+  public ResponseEntity<OwnerModel> saveOwner(@RequestBody @Valid OwnerRecordDTO newOwnerDto) {
+    return ownerService.saveOwner(newOwnerDto);
+  }
+  
+  @GetMapping()
+  public ResponseEntity<List<OwnerModel>> getAllOwners() {
+    return ownerService.getAllOwners();
+  }
+  
+  @GetMapping("/{id}")
+  public ResponseEntity<Object> getOwnerById(@PathVariable(value = "id") UUID ownerId) {
+    return ownerService.getOwnerById(ownerId);
+  }
+  
+  @PutMapping("/{id}")
+  public ResponseEntity<Object> updateOwnerById(@RequestBody @Valid OwnerRecordDTO ownerDto,
+                                                @PathVariable(value = "id") UUID ownerId) {
+    return ownerService.updateOwnerById(ownerDto, ownerId);
+  }
+  
+  @DeleteMapping("/{id}")
+  public ResponseEntity<Object> deleteOwnerById(@PathVariable(value = "id") UUID ownerId) {
+    return ownerService.deleteOwnerById(ownerId);
+  }
 }

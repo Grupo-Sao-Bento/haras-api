@@ -14,9 +14,10 @@ import java.util.UUID;
 @Entity
 @Table(name = "FarmGroups")
 public class GroupModel implements Serializable {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private UUID groupId;
-    // farmId
+  
+  @Id
+  @GeneratedValue(strategy = GenerationType.AUTO)
+  private UUID groupId;
+  
+  // farmId
 }

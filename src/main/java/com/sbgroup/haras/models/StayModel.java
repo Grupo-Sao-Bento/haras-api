@@ -15,11 +15,14 @@ import java.util.UUID;
 @Entity
 @Table(name = "Stays")
 public class StayModel implements Serializable {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private UUID stayId;
-    private Timestamp ingress;
-    private Timestamp egress;
-    // farmId
+  
+  @Id
+  @GeneratedValue(strategy = GenerationType.AUTO)
+  private UUID stayId;
+  
+  private Timestamp ingress;
+  
+  private Timestamp egress;
+  
+  // farmId
 }

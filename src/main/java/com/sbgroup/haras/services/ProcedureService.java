@@ -16,53 +16,53 @@ import java.util.UUID;
 
 @Service
 public class ProcedureService {
-
-    @Autowired()
-    ProcedureRepository procedureRepository;
-
-    @Transactional()
-    public ResponseEntity<ProcedureModel> saveProcedure(ProcedureRecordDTO newProcedureDto) {
-        var newProcedureModel = new ProcedureModel();
-        BeanUtils.copyProperties(newProcedureDto, newProcedureModel);
-        return ResponseEntity.status(HttpStatus.CREATED).body(procedureRepository.save(newProcedureModel));
+  
+  @Autowired()
+  ProcedureRepository procedureRepository;
+  
+  @Transactional()
+  public ResponseEntity<ProcedureModel> saveProcedure(ProcedureRecordDTO newProcedureDto) {
+    var newProcedureModel = new ProcedureModel();
+    BeanUtils.copyProperties(newProcedureDto, newProcedureModel);
+    return ResponseEntity.status(HttpStatus.CREATED).body(procedureRepository.save(newProcedureModel));
+  }
+  
+  public ResponseEntity<List<ProcedureModel>> getAllProcedures() {
+    return ResponseEntity.status(HttpStatus.OK).body(procedureRepository.findAll());
+  }
+  
+  public ResponseEntity<Object> getProcedureById(UUID procedureId) {
+    Optional<ProcedureModel> procedureModel = procedureRepository.findById(procedureId);
+    
+    if (procedureModel.isEmpty()) {
+      return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Procedure id not found");
     }
-
-    public ResponseEntity<List<ProcedureModel>> getAllProcedures() {
-        return ResponseEntity.status(HttpStatus.OK).body(procedureRepository.findAll());
+    
+    return ResponseEntity.status(HttpStatus.OK).body(procedureModel);
+  }
+  
+  @Transactional()
+  public ResponseEntity<Object> updateProcedureById(ProcedureRecordDTO procedureDto, UUID procedureId) {
+    Optional<ProcedureModel> procedureModel = procedureRepository.findById(procedureId);
+    
+    if (procedureModel.isEmpty()) {
+      return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Procedure id not found");
     }
-
-    public ResponseEntity<Object> getProcedureById(UUID procedureId) {
-        Optional<ProcedureModel> procedureModel = procedureRepository.findById(procedureId);
-
-        if (procedureModel.isEmpty()) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Procedure id not found");
-        }
-
-        return ResponseEntity.status(HttpStatus.OK).body(procedureModel);
+    
+    var updatedProcedure = procedureModel.get();
+    BeanUtils.copyProperties(procedureDto, updatedProcedure);
+    return ResponseEntity.status(HttpStatus.OK).body(procedureRepository.save(updatedProcedure));
+  }
+  
+  @Transactional()
+  public ResponseEntity<Object> deleteProcedureById(UUID procedureId) {
+    Optional<ProcedureModel> procedureModel = procedureRepository.findById(procedureId);
+    
+    if (procedureModel.isEmpty()) {
+      return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Procedure id not found");
     }
-
-    @Transactional()
-    public ResponseEntity<Object> updateProcedureById(ProcedureRecordDTO procedureDto, UUID procedureId) {
-        Optional<ProcedureModel> procedureModel = procedureRepository.findById(procedureId);
-
-        if (procedureModel.isEmpty()) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Procedure id not found");
-        }
-
-        var updatedProcedure = procedureModel.get();
-        BeanUtils.copyProperties(procedureDto, updatedProcedure);
-        return ResponseEntity.status(HttpStatus.OK).body(procedureRepository.save(updatedProcedure));
-    }
-
-    @Transactional()
-    public ResponseEntity<Object> deleteProcedureById(UUID procedureId) {
-        Optional<ProcedureModel> procedureModel = procedureRepository.findById(procedureId);
-
-        if (procedureModel.isEmpty()) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Procedure id not found");
-        }
-
-        procedureRepository.delete(procedureModel.get());
-        return ResponseEntity.status(HttpStatus.OK).body("Procedure deleted successfuly");
-    }
+    
+    procedureRepository.delete(procedureModel.get());
+    return ResponseEntity.status(HttpStatus.OK).body("Procedure deleted successfuly");
+  }
 }
