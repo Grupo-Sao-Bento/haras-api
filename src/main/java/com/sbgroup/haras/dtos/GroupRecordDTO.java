@@ -1,4 +1,8 @@
 package com.sbgroup.haras.dtos;
 
-public record GroupRecordDTO() {
+import jakarta.validation.constraints.NotBlank;
+
+public record GroupRecordDTO(
+        @NotBlank String name,
+        @NotBlank String farmId) {
 }

@@ -1,16 +1,15 @@
 package com.sbgroup.haras.models;
 
 import jakarta.persistence.*;
-import java.io.Serializable;
 import java.util.UUID;
 
 @Entity
-@Table(name = "FarmGroups")
-public class GroupModel implements Serializable {
+@Table(name = "ProcedureTypes")
+public class ProcedureType {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private UUID groupId;
+    private UUID procedureTypeId;
     private String name;
-    private String farmId;
+
 }
