@@ -1,8 +1,8 @@
 package com.sbgroup.haras.controllers;
 
-import com.sbgroup.haras.dtos.AuthRecordDTO;
-import com.sbgroup.haras.dtos.LoginTokenRecordDTO;
-import com.sbgroup.haras.dtos.UserRecordDTO;
+import com.sbgroup.haras.dtos.AuthDTO;
+import com.sbgroup.haras.dtos.LoginTokenDTO;
+import com.sbgroup.haras.dtos.UserDTO;
 import com.sbgroup.haras.models.UserModel;
 import com.sbgroup.haras.repositories.AuthRepository;
 import com.sbgroup.haras.security.TokenService;
@@ -19,7 +19,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.sql.Timestamp;
-import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
 
@@ -37,17 +36,17 @@ public class AuthController {
   private TokenService tokenService;
 
   @PostMapping("/login")
-  public ResponseEntity login(@RequestBody @Valid AuthRecordDTO authData) {
+  public ResponseEntity login(@RequestBody @Valid AuthDTO authData) {
     var usernamePassword = new UsernamePasswordAuthenticationToken(authData.login(), authData.password());
     var auth = this.authenticationManager.authenticate(usernamePassword);
 
     var token = tokenService.generateToken((UserModel) auth.getPrincipal());
 
-    return ResponseEntity.ok(new LoginTokenRecordDTO(token));
+    return ResponseEntity.ok(new LoginTokenDTO(token));
   }
 
   @PostMapping("/register")
-  public ResponseEntity register(@RequestBody @Valid UserRecordDTO data) {
+  public ResponseEntity register(@RequestBody @Valid UserDTO data) {
     if (this.authRepository.findByLogin(data.email()) != null) {
       return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("User already exists");
 

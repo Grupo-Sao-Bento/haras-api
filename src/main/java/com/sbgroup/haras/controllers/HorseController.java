@@ -1,6 +1,6 @@
 package com.sbgroup.haras.controllers;
 
-import com.sbgroup.haras.dtos.HorseRecordDTO;
+import com.sbgroup.haras.dtos.HorseDTO;
 import com.sbgroup.haras.models.HorseModel;
 import com.sbgroup.haras.services.HorseService;
 import jakarta.validation.Valid;
@@ -19,7 +19,7 @@ public class HorseController {
   HorseService horseService;
   
   @PostMapping()
-  public ResponseEntity<HorseModel> saveHorse(@RequestBody @Valid HorseRecordDTO newHorseDto) {
+  public ResponseEntity<HorseModel> saveHorse(@RequestBody @Valid HorseDTO newHorseDto) {
     return horseService.saveHorse(newHorseDto);
   }
   
@@ -34,7 +34,7 @@ public class HorseController {
   }
   
   @PutMapping("/{id}")
-  public ResponseEntity<Object> updateHorseById(@RequestBody @Valid HorseRecordDTO horseDto,
+  public ResponseEntity<Object> updateHorseById(@RequestBody @Valid HorseDTO horseDto,
                                                 @PathVariable(value = "id") UUID horseId) {
     return horseService.updateHorseById(horseDto, horseId);
   }

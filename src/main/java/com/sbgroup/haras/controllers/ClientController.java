@@ -1,6 +1,6 @@
 package com.sbgroup.haras.controllers;
 
-import com.sbgroup.haras.dtos.ClientRecordDTO;
+import com.sbgroup.haras.dtos.ClientDTO;
 import com.sbgroup.haras.models.ClientModel;
 import com.sbgroup.haras.services.ClientService;
 import jakarta.validation.Valid;
@@ -19,7 +19,7 @@ public class ClientController {
   ClientService clientService;
   
   @PostMapping()
-  public ResponseEntity<ClientModel> saveClient(@RequestBody @Valid ClientRecordDTO newClientDto) {
+  public ResponseEntity<ClientModel> saveClient(@RequestBody @Valid ClientDTO newClientDto) {
     return clientService.saveClient(newClientDto);
   }
   
@@ -34,7 +34,7 @@ public class ClientController {
   }
   
   @PutMapping("/{id}")
-  public ResponseEntity<Object> updateClientById(@RequestBody @Valid ClientRecordDTO clientDto,
+  public ResponseEntity<Object> updateClientById(@RequestBody @Valid ClientDTO clientDto,
                                                  @PathVariable(value = "id") UUID clientId) {
     return clientService.updateClientById(clientDto, clientId);
   }

@@ -1,6 +1,6 @@
 package com.sbgroup.haras.services;
 
-import com.sbgroup.haras.dtos.FarmRecordDTO;
+import com.sbgroup.haras.dtos.FarmDTO;
 import com.sbgroup.haras.models.FarmModel;
 import com.sbgroup.haras.repositories.FarmRepository;
 import org.springframework.beans.BeanUtils;
@@ -21,7 +21,7 @@ public class FarmService {
   FarmRepository farmRepository;
   
   @Transactional()
-  public ResponseEntity<FarmModel> saveFarm(FarmRecordDTO newFarmDto) {
+  public ResponseEntity<FarmModel> saveFarm(FarmDTO newFarmDto) {
     var newFarmModel = new FarmModel();
     BeanUtils.copyProperties(newFarmDto, newFarmModel);
     return ResponseEntity.status(HttpStatus.CREATED).body(farmRepository.save(newFarmModel));
@@ -42,7 +42,7 @@ public class FarmService {
   }
   
   @Transactional()
-  public ResponseEntity<Object> updateFarmById(FarmRecordDTO farmDto, UUID farmId) {
+  public ResponseEntity<Object> updateFarmById(FarmDTO farmDto, UUID farmId) {
     Optional<FarmModel> farmModel = farmRepository.findById(farmId);
     
     if (farmModel.isEmpty()) {

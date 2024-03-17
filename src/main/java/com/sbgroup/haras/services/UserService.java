@@ -1,6 +1,6 @@
 package com.sbgroup.haras.services;
 
-import com.sbgroup.haras.dtos.UserRecordDTO;
+import com.sbgroup.haras.dtos.UserDTO;
 import com.sbgroup.haras.models.UserModel;
 import com.sbgroup.haras.repositories.UserRepository;
 import org.springframework.beans.BeanUtils;
@@ -21,7 +21,7 @@ public class UserService {
   UserRepository userRepository;
   
   @Transactional()
-  public ResponseEntity<UserModel> saveUser(UserRecordDTO newUserDto) {
+  public ResponseEntity<UserModel> saveUser(UserDTO newUserDto) {
     var newUserModel = new UserModel();
     BeanUtils.copyProperties(newUserDto, newUserModel);
     return ResponseEntity.status(HttpStatus.CREATED).body(userRepository.save(newUserModel));
@@ -42,7 +42,7 @@ public class UserService {
   }
   
   @Transactional()
-  public ResponseEntity<Object> updateUserById(UserRecordDTO userDto, UUID userId) {
+  public ResponseEntity<Object> updateUserById(UserDTO userDto, UUID userId) {
     Optional<UserModel> userModel = userRepository.findById(userId);
     
     if (userModel.isEmpty()) {

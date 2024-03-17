@@ -1,6 +1,6 @@
 package com.sbgroup.haras.services;
 
-import com.sbgroup.haras.dtos.HorseRecordDTO;
+import com.sbgroup.haras.dtos.HorseDTO;
 import com.sbgroup.haras.models.HorseModel;
 import com.sbgroup.haras.repositories.HorseRepository;
 import org.springframework.beans.BeanUtils;
@@ -21,7 +21,7 @@ public class HorseService {
   HorseRepository horseRepository;
   
   @Transactional()
-  public ResponseEntity<HorseModel> saveHorse(HorseRecordDTO newHorseDto) {
+  public ResponseEntity<HorseModel> saveHorse(HorseDTO newHorseDto) {
     var newHorseModel = new HorseModel();
     BeanUtils.copyProperties(newHorseDto, newHorseModel);
     return ResponseEntity.status(HttpStatus.CREATED).body(horseRepository.save(newHorseModel));
@@ -42,7 +42,7 @@ public class HorseService {
   }
   
   @Transactional()
-  public ResponseEntity<Object> updateHorseById(HorseRecordDTO horseDto, UUID horseId) {
+  public ResponseEntity<Object> updateHorseById(HorseDTO horseDto, UUID horseId) {
     Optional<HorseModel> horseModel = horseRepository.findById(horseId);
     
     if (horseModel.isEmpty()) {

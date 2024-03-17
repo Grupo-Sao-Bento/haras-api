@@ -5,7 +5,7 @@ import jakarta.validation.constraints.NotNull;
 
 import java.sql.Timestamp;
 
-public record FarmRecordDTO(
+public record FarmDTO(
   @NotBlank String name,
   @NotBlank String address,
   @NotBlank String city,

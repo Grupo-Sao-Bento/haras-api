@@ -1,6 +1,6 @@
 package com.sbgroup.haras.services;
 
-import com.sbgroup.haras.dtos.GroupRecordDTO;
+import com.sbgroup.haras.dtos.GroupDTO;
 import com.sbgroup.haras.models.GroupModel;
 import com.sbgroup.haras.repositories.GroupRepository;
 import org.springframework.beans.BeanUtils;
@@ -21,7 +21,7 @@ public class GroupService {
   GroupRepository groupRepository;
   
   @Transactional()
-  public ResponseEntity<GroupModel> saveGroup(GroupRecordDTO newGroupDto) {
+  public ResponseEntity<GroupModel> saveGroup(GroupDTO newGroupDto) {
     var newGroupModel = new GroupModel();
     BeanUtils.copyProperties(newGroupDto, newGroupModel);
     return ResponseEntity.status(HttpStatus.CREATED).body(groupRepository.save(newGroupModel));
@@ -42,7 +42,7 @@ public class GroupService {
   }
   
   @Transactional()
-  public ResponseEntity<Object> updateGroupById(GroupRecordDTO groupDto, UUID groupId) {
+  public ResponseEntity<Object> updateGroupById(GroupDTO groupDto, UUID groupId) {
     Optional<GroupModel> groupModel = groupRepository.findById(groupId);
     
     if (groupModel.isEmpty()) {

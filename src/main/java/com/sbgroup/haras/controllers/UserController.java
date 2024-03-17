@@ -1,6 +1,6 @@
 package com.sbgroup.haras.controllers;
 
-import com.sbgroup.haras.dtos.UserRecordDTO;
+import com.sbgroup.haras.dtos.UserDTO;
 import com.sbgroup.haras.models.UserModel;
 import com.sbgroup.haras.services.UserService;
 import jakarta.validation.Valid;
@@ -19,7 +19,7 @@ public class UserController {
   UserService userService;
   
   @PostMapping()
-  public ResponseEntity<UserModel> saveUser(@RequestBody @Valid UserRecordDTO newUserDto) {
+  public ResponseEntity<UserModel> saveUser(@RequestBody @Valid UserDTO newUserDto) {
     return userService.saveUser(newUserDto);
   }
   
@@ -34,7 +34,7 @@ public class UserController {
   }
   
   @PutMapping("/{id}")
-  public ResponseEntity<Object> updateUserById(@RequestBody @Valid UserRecordDTO userDto,
+  public ResponseEntity<Object> updateUserById(@RequestBody @Valid UserDTO userDto,
                                                @PathVariable(value = "id") UUID userId) {
     return userService.updateUserById(userDto, userId);
   }

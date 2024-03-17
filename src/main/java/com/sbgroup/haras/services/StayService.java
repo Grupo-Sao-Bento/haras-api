@@ -1,6 +1,6 @@
 package com.sbgroup.haras.services;
 
-import com.sbgroup.haras.dtos.StayRecordDTO;
+import com.sbgroup.haras.dtos.StayDTO;
 import com.sbgroup.haras.models.StayModel;
 import com.sbgroup.haras.repositories.StayRepository;
 import org.springframework.beans.BeanUtils;
@@ -21,7 +21,7 @@ public class StayService {
   StayRepository stayRepository;
   
   @Transactional()
-  public ResponseEntity<StayModel> saveStay(StayRecordDTO newStayDto) {
+  public ResponseEntity<StayModel> saveStay(StayDTO newStayDto) {
     var newStayModel = new StayModel();
     BeanUtils.copyProperties(newStayDto, newStayModel);
     return ResponseEntity.status(HttpStatus.CREATED).body(stayRepository.save(newStayModel));
@@ -42,7 +42,7 @@ public class StayService {
   }
   
   @Transactional()
-  public ResponseEntity<Object> updateStayById(StayRecordDTO stayDto, UUID stayId) {
+  public ResponseEntity<Object> updateStayById(StayDTO stayDto, UUID stayId) {
     Optional<StayModel> stayModel = stayRepository.findById(stayId);
     
     if (stayModel.isEmpty()) {

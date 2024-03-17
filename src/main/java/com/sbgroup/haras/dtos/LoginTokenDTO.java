@@ -1,5 +1,5 @@
 package com.sbgroup.haras.dtos;
 
-public record LoginTokenRecordDTO(
+public record LoginTokenDTO(
   String token) {
 }

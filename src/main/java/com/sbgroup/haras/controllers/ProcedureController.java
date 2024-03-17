@@ -1,6 +1,6 @@
 package com.sbgroup.haras.controllers;
 
-import com.sbgroup.haras.dtos.ProcedureRecordDTO;
+import com.sbgroup.haras.dtos.ProcedureDTO;
 import com.sbgroup.haras.models.ProcedureModel;
 import com.sbgroup.haras.services.ProcedureService;
 import jakarta.validation.Valid;
@@ -19,7 +19,7 @@ public class ProcedureController {
   ProcedureService procedureService;
   
   @PostMapping()
-  public ResponseEntity<ProcedureModel> saveProcedure(@RequestBody @Valid ProcedureRecordDTO newProcedureDto) {
+  public ResponseEntity<ProcedureModel> saveProcedure(@RequestBody @Valid ProcedureDTO newProcedureDto) {
     return procedureService.saveProcedure(newProcedureDto);
   }
   
@@ -34,7 +34,7 @@ public class ProcedureController {
   }
   
   @PutMapping("/{id}")
-  public ResponseEntity<Object> updateProcedureById(@RequestBody @Valid ProcedureRecordDTO procedureDto,
+  public ResponseEntity<Object> updateProcedureById(@RequestBody @Valid ProcedureDTO procedureDto,
                                                     @PathVariable(value = "id") UUID procedureId) {
     return procedureService.updateProcedureById(procedureDto, procedureId);
   }

@@ -1,6 +1,6 @@
 package com.sbgroup.haras.services;
 
-import com.sbgroup.haras.dtos.ClientRecordDTO;
+import com.sbgroup.haras.dtos.ClientDTO;
 import com.sbgroup.haras.models.ClientModel;
 import com.sbgroup.haras.repositories.ClientRepository;
 import org.springframework.beans.BeanUtils;
@@ -21,7 +21,7 @@ public class ClientService {
   ClientRepository clientRepository;
   
   @Transactional()
-  public ResponseEntity<ClientModel> saveClient(ClientRecordDTO newClientDto) {
+  public ResponseEntity<ClientModel> saveClient(ClientDTO newClientDto) {
     var newClientModel = new ClientModel();
     BeanUtils.copyProperties(newClientDto, newClientModel);
     return ResponseEntity.status(HttpStatus.CREATED).body(clientRepository.save(newClientModel));
@@ -42,7 +42,7 @@ public class ClientService {
   }
   
   @Transactional()
-  public ResponseEntity<Object> updateClientById(ClientRecordDTO clientDto, UUID clientId) {
+  public ResponseEntity<Object> updateClientById(ClientDTO clientDto, UUID clientId) {
     Optional<ClientModel> clientModel = clientRepository.findById(clientId);
     
     if (clientModel.isEmpty()) {

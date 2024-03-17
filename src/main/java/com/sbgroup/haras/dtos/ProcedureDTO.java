@@ -5,10 +5,11 @@ import jakarta.validation.constraints.NotNull;
 
 import java.sql.Timestamp;
 
-public record StayRecordDTO(
+public record ProcedureDTO(
+  @NotNull int procedureTypeId,
   @NotBlank String farmId,
-  @NotBlank String animalId,
-  @NotNull Timestamp entry,
-  @NotNull Timestamp forebeenEgress,
-  @NotNull Timestamp egress) {
+  @NotNull Timestamp date,
+  @NotBlank String responsibleId,
+  @NotNull Timestamp updateAt,
+  @NotBlank String updateBy) {
 }

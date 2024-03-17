@@ -1,6 +1,6 @@
 package com.sbgroup.haras.controllers;
 
-import com.sbgroup.haras.dtos.GroupRecordDTO;
+import com.sbgroup.haras.dtos.GroupDTO;
 import com.sbgroup.haras.models.GroupModel;
 import com.sbgroup.haras.services.GroupService;
 import jakarta.validation.Valid;
@@ -19,7 +19,7 @@ public class GroupController {
   GroupService groupService;
   
   @PostMapping()
-  public ResponseEntity<GroupModel> saveGroup(@RequestBody @Valid GroupRecordDTO newGroupDto) {
+  public ResponseEntity<GroupModel> saveGroup(@RequestBody @Valid GroupDTO newGroupDto) {
     return groupService.saveGroup(newGroupDto);
   }
   
@@ -34,7 +34,7 @@ public class GroupController {
   }
   
   @PutMapping("/{id}")
-  public ResponseEntity<Object> updateGroupById(@RequestBody @Valid GroupRecordDTO groupDto,
+  public ResponseEntity<Object> updateGroupById(@RequestBody @Valid GroupDTO groupDto,
                                                 @PathVariable(value = "id") UUID groupId) {
     return groupService.updateGroupById(groupDto, groupId);
   }

@@ -2,6 +2,7 @@ package com.sbgroup.haras.dtos;
 
 import jakarta.validation.constraints.NotBlank;
 
-public record ProcedureTypeRecordDTO(
-  @NotBlank String name) {
+public record GroupDTO(
+  @NotBlank String name,
+  @NotBlank String farmId) {
 }

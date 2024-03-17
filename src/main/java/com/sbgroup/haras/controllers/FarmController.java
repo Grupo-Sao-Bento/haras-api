@@ -1,6 +1,6 @@
 package com.sbgroup.haras.controllers;
 
-import com.sbgroup.haras.dtos.FarmRecordDTO;
+import com.sbgroup.haras.dtos.FarmDTO;
 import com.sbgroup.haras.models.FarmModel;
 import com.sbgroup.haras.services.FarmService;
 import jakarta.validation.Valid;
@@ -19,7 +19,7 @@ public class FarmController {
   FarmService farmService;
   
   @PostMapping()
-  public ResponseEntity<FarmModel> saveFarm(@RequestBody @Valid FarmRecordDTO newFarmDto) {
+  public ResponseEntity<FarmModel> saveFarm(@RequestBody @Valid FarmDTO newFarmDto) {
     return farmService.saveFarm(newFarmDto);
   }
   
@@ -34,7 +34,7 @@ public class FarmController {
   }
   
   @PutMapping("/{id}")
-  public ResponseEntity<Object> updateFarmById(@RequestBody @Valid FarmRecordDTO farmDto,
+  public ResponseEntity<Object> updateFarmById(@RequestBody @Valid FarmDTO farmDto,
                                                @PathVariable(value = "id") UUID farmId) {
     return farmService.updateFarmById(farmDto, farmId);
   }

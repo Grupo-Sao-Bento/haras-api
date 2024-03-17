@@ -4,9 +4,7 @@ import com.sbgroup.haras.enums.UserRole;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
-import java.sql.Timestamp;
-
-public record UserRecordDTO(
+public record UserDTO(
   @NotBlank String email,
   @NotBlank String firstName,
   @NotBlank String lastName,

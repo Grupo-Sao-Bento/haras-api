@@ -1,6 +1,6 @@
 package com.sbgroup.haras.controllers;
 
-import com.sbgroup.haras.dtos.StayRecordDTO;
+import com.sbgroup.haras.dtos.StayDTO;
 import com.sbgroup.haras.models.StayModel;
 import com.sbgroup.haras.services.StayService;
 import jakarta.validation.Valid;
@@ -19,7 +19,7 @@ public class StayController {
   StayService stayService;
   
   @PostMapping()
-  public ResponseEntity<StayModel> saveStay(@RequestBody @Valid StayRecordDTO newStayDto) {
+  public ResponseEntity<StayModel> saveStay(@RequestBody @Valid StayDTO newStayDto) {
     return stayService.saveStay(newStayDto);
   }
   
@@ -34,7 +34,7 @@ public class StayController {
   }
   
   @PutMapping("/{id}")
-  public ResponseEntity<Object> updateStayById(@RequestBody @Valid StayRecordDTO stayDto,
+  public ResponseEntity<Object> updateStayById(@RequestBody @Valid StayDTO stayDto,
                                                @PathVariable(value = "id") UUID stayId) {
     return stayService.updateStayById(stayDto, stayId);
   }

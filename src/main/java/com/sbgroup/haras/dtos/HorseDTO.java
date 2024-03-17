@@ -5,7 +5,7 @@ import jakarta.validation.constraints.NotNull;
 
 import java.sql.Timestamp;
 
-public record HorseRecordDTO(
+public record HorseDTO(
   @NotBlank String name,
   @NotNull int animalType,
   @NotBlank String gender,

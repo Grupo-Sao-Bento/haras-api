@@ -1,6 +1,6 @@
 package com.sbgroup.haras.services;
 
-import com.sbgroup.haras.dtos.ProcedureRecordDTO;
+import com.sbgroup.haras.dtos.ProcedureDTO;
 import com.sbgroup.haras.models.ProcedureModel;
 import com.sbgroup.haras.repositories.ProcedureRepository;
 import org.springframework.beans.BeanUtils;
@@ -21,7 +21,7 @@ public class ProcedureService {
   ProcedureRepository procedureRepository;
   
   @Transactional()
-  public ResponseEntity<ProcedureModel> saveProcedure(ProcedureRecordDTO newProcedureDto) {
+  public ResponseEntity<ProcedureModel> saveProcedure(ProcedureDTO newProcedureDto) {
     var newProcedureModel = new ProcedureModel();
     BeanUtils.copyProperties(newProcedureDto, newProcedureModel);
     return ResponseEntity.status(HttpStatus.CREATED).body(procedureRepository.save(newProcedureModel));
@@ -42,7 +42,7 @@ public class ProcedureService {
   }
   
   @Transactional()
-  public ResponseEntity<Object> updateProcedureById(ProcedureRecordDTO procedureDto, UUID procedureId) {
+  public ResponseEntity<Object> updateProcedureById(ProcedureDTO procedureDto, UUID procedureId) {
     Optional<ProcedureModel> procedureModel = procedureRepository.findById(procedureId);
     
     if (procedureModel.isEmpty()) {
