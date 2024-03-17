@@ -53,7 +53,7 @@ public class AuthController {
 
     } else {
       String encryptedPassword = new BCryptPasswordEncoder().encode(data.password());
-      Timestamp now = Timestamp.from(LocalDateTime.now().plusHours(2).toInstant(ZoneOffset.of("-03:00")));
+      Timestamp now = Timestamp.from(LocalDateTime.now().toInstant(ZoneOffset.of("-03:00")));
 
       UserModel newAuth = new UserModel(
         data.firstName(),
