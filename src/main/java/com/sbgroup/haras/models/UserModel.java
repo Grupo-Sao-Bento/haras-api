@@ -24,7 +24,7 @@ public class UserModel implements Serializable, UserDetails {
 
   @Id
   @GeneratedValue(strategy = GenerationType.AUTO)
-  private UUID userId;
+  private UUID id;
 
   @Column(unique=true)
   private String email;

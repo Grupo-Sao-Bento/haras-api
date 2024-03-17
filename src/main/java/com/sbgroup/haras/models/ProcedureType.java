@@ -16,7 +16,7 @@ public class ProcedureType {
 
   @Id
   @GeneratedValue(strategy = GenerationType.AUTO)
-  private UUID procedureTypeId;
+  private UUID id;
 
   private String name;
 }

@@ -17,7 +17,7 @@ public class AnimalTypesModel implements Serializable {
 
   @Id
   @GeneratedValue(strategy = GenerationType.AUTO)
-  private UUID animalTypeId;
+  private UUID id;
 
   private String name;
 }

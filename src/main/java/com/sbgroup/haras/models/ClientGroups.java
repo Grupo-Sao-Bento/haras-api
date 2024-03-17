@@ -17,7 +17,7 @@ public class ClientGroups implements Serializable {
 
   @Id
   @GeneratedValue(strategy = GenerationType.AUTO)
-  private UUID clientGroupsId;
+  private UUID id;
 
   private int clientQuota;
 }
