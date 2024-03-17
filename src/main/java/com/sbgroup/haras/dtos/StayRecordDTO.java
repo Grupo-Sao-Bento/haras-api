@@ -9,6 +9,6 @@ public record StayRecordDTO(
   @NotBlank String farmId,
   @NotBlank String animalId,
   @NotNull Timestamp entry,
-  @NotNull Timestamp forebeenExit,
-  @NotNull Timestamp exit) {
+  @NotNull Timestamp forebeenEgress,
+  @NotNull Timestamp egress) {
 }

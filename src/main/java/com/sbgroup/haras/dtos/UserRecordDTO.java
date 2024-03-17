@@ -12,6 +12,5 @@ public record UserRecordDTO(
   @NotBlank String lastName,
   @NotNull UserRole role,
   @NotBlank String farmId,
-  @NotNull Timestamp createdAt,
   @NotBlank String password) {
 }

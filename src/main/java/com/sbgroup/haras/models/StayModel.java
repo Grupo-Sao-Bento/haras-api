@@ -22,6 +22,6 @@ public class StayModel implements Serializable {
   private String farmId;
   private String animalId;
   private Timestamp entry;
-  private Timestamp forebeenExit;
-  private Timestamp exit;
+  private Timestamp forebeenEgress;
+  private Timestamp egress;
 }

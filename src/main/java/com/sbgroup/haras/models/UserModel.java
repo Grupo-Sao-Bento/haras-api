@@ -32,18 +32,22 @@ public class UserModel implements Serializable, UserDetails {
   @Column(nullable = true)
   private UserRole role;
 
+  private String login;
   private String firstName;
   private String lastName;
   private String farmId;
   private Timestamp createdAt;
   private String password;
 
-  public UserModel(String firstName, String lastName, String email, String password, UserRole role) {
+  public UserModel(String firstName, String lastName, String email, String password, UserRole role, String farmId, Timestamp createdAt) {
     this.firstName = firstName;
     this.lastName = lastName;
+    this.login = email;
     this.email = email;
     this.password = password;
     this.role = role;
+    this.farmId = farmId;
+    this.createdAt = createdAt;
   }
 
   @Override
