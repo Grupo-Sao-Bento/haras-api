@@ -19,6 +19,7 @@ public class HorseModel implements Serializable {
   @Id
   @GeneratedValue(strategy = GenerationType.AUTO)
   private UUID horseId;
+
   private String name;
   private int animalType;
   private String gender;

@@ -18,6 +18,7 @@ public class GroupModel implements Serializable {
   @Id
   @GeneratedValue(strategy = GenerationType.AUTO)
   private UUID groupId;
+
   private String name;
   private String farmId;
 }

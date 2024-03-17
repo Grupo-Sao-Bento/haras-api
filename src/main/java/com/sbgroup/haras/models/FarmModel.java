@@ -19,6 +19,7 @@ public class FarmModel implements Serializable {
   @Id
   @GeneratedValue(strategy = GenerationType.AUTO)
   private UUID farmId;
+
   private String name;
   private String address;
   private String city;

@@ -19,6 +19,7 @@ public class ProcedureModel implements Serializable {
   @Id
   @GeneratedValue(strategy = GenerationType.AUTO)
   private UUID procedureId;
+
   private int procedureTypeId;
   private String farmId;
   private Timestamp date;

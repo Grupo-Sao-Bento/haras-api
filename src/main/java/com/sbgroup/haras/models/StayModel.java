@@ -19,6 +19,7 @@ public class StayModel implements Serializable {
   @Id
   @GeneratedValue(strategy = GenerationType.AUTO)
   private UUID stayId;
+
   private String farmId;
   private String animalId;
   private Timestamp entry;
