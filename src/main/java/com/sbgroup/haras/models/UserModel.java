@@ -2,11 +2,11 @@ package com.sbgroup.haras.models;
 
 import com.sbgroup.haras.enums.UserRole;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-
 import java.io.Serializable;
 import java.sql.Timestamp;
 import java.util.Collection;
@@ -24,19 +24,29 @@ public class UserModel implements Serializable, UserDetails {
 
   @Id
   @GeneratedValue(strategy = GenerationType.AUTO)
+  @Column(name = "users_id")
   private UUID id;
-
-  @Column(unique=true)
+  @NotBlank
+  @Column(name = "users_email",unique=true)
   private String email;
-
-  @Column(nullable = true)
+  @ManyToMany
+  @JoinColumn(name = "roles_id")
   private UserRole role;
-
+  @Column(name = "users_login")
   private String login;
+  @NotBlank
+  @Column(name = "users_first_name")
   private String firstName;
+  @NotBlank
+  @Column(name = "users_last_name")
   private String lastName;
+  @ManyToMany
+  @JoinColumn(name = "users_farm_id")
   private String farmId;
+  @NotBlank
+  @Column(name = "users_created_at")
   private Timestamp createdAt;
+  @Column(name = "users_password")
   private String password;
 
   public UserModel(String firstName, String lastName, String email, String password, UserRole role, String farmId, Timestamp createdAt) {

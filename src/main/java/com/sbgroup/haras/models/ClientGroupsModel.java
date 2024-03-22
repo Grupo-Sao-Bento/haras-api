@@ -1,8 +1,8 @@
 package com.sbgroup.haras.models;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 import lombok.*;
-
 import java.io.Serializable;
 import java.util.UUID;
 
@@ -13,11 +13,15 @@ import java.util.UUID;
 @Builder
 @Entity
 @Table(name = "ClientGroups")
-public class ClientGroups implements Serializable {
+public class ClientGroupsModel implements Serializable {
 
-  @Id
-  @GeneratedValue(strategy = GenerationType.AUTO)
+  @OneToMany
+  @JoinColumn(name = "clients_id")
   private UUID id;
-
+  @ManyToMany
+  @JoinColumn(name = "groups_id")
+  private UUID groupId;
+  @NotNull
+  @Column(name = "client_quota")
   private int clientQuota;
 }
