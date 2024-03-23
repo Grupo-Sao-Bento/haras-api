@@ -21,48 +21,42 @@ public class UserService {
   UserRepository userRepository;
   
   @Transactional()
-  public ResponseEntity<User> saveUser(UserDTO newUserDto) {
+  public User saveUser(UserDTO newUserDto) {
     var newUserModel = new User();
     BeanUtils.copyProperties(newUserDto, newUserModel);
-    return ResponseEntity.status(HttpStatus.CREATED).body(userRepository.save(newUserModel));
+    return newUserModel;
   }
   
-  public ResponseEntity<List<User>> getAllUsers() {
-    return ResponseEntity.status(HttpStatus.OK).body(userRepository.findAll());
+  public List<User> getAllUsers() {
+    return userRepository.findAll();
   }
   
-  public ResponseEntity<Object> getUserById(UUID userId) {
-    Optional<User> userModel = userRepository.findById(userId);
-    
-    if (userModel.isEmpty()) {
-      return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User id not found");
-    }
-    
-    return ResponseEntity.status(HttpStatus.OK).body(userModel);
+  public Optional<User> getUserById(UUID userId) {
+    return userRepository.findById(userId);
   }
   
   @Transactional()
-  public ResponseEntity<Object> updateUserById(UserDTO userDto, UUID userId) {
-    Optional<User> userModel = userRepository.findById(userId);
-    
+  public Optional<User> updateUserById(UserDTO userDto, UUID userId) {
+    var userModel = userRepository.findById(userId);
+
     if (userModel.isEmpty()) {
-      return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User id not found");
+      return Optional.empty();
     }
     
     var updatedUser = userModel.get();
     BeanUtils.copyProperties(userDto, updatedUser);
-    return ResponseEntity.status(HttpStatus.OK).body(userRepository.save(updatedUser));
+    return Optional.of(userRepository.save(updatedUser));
   }
   
   @Transactional()
-  public ResponseEntity<Object> deleteUserById(UUID userId) {
-    Optional<User> userModel = userRepository.findById(userId);
+  public Optional<User> deleteUserById(UUID userId) {
+    var userModel = userRepository.findById(userId);
     
     if (userModel.isEmpty()) {
-      return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User id not found");
+      return Optional.empty();
     }
-    
+
     userRepository.delete(userModel.get());
-    return ResponseEntity.status(HttpStatus.OK).body("User deleted successfuly");
+    return userModel;
   }
 }
