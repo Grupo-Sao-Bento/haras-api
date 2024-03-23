@@ -25,7 +25,6 @@ public class User implements Serializable, UserDetails {
   @Id
   @GeneratedValue(strategy = GenerationType.AUTO)
   private UUID id;
-  private String email;
   private UserRole role;
   private String login;
   private String firstName;
@@ -34,11 +33,10 @@ public class User implements Serializable, UserDetails {
   private String password;
   // Farm
 
-  public User(String firstName, String lastName, String email, String password, UserRole role, Timestamp createdAt) {
+  public User(String firstName, String lastName, String login, String password, UserRole role, Timestamp createdAt) {
     this.firstName = firstName;
     this.lastName = lastName;
-    this.login = email;
-    this.email = email;
+    this.login = login;
     this.password = password;
     this.role = role;
     this.createdAt = createdAt;
@@ -55,7 +53,7 @@ public class User implements Serializable, UserDetails {
 
   @Override
   public String getUsername() {
-    return email;
+    return login;
   }
 
   @Override

@@ -47,7 +47,7 @@ public class AuthController {
 
   @PostMapping("/register")
   public ResponseEntity register(@RequestBody @Valid UserDTO data) {
-    if (this.authRepository.findByLogin(data.email()) != null) {
+    if (this.authRepository.findByLogin(data.login()) != null) {
       return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("User already exists");
 
     } else {
@@ -57,7 +57,7 @@ public class AuthController {
       User newAuth = new User(
         data.firstName(),
         data.lastName(),
-        data.email(),
+        data.login(),
         encryptedPassword,
         data.role(),
         now);
