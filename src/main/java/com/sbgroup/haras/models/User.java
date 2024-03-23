@@ -2,7 +2,6 @@ package com.sbgroup.haras.models;
 
 import com.sbgroup.haras.enums.UserRole;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotBlank;
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -25,12 +24,25 @@ public class User implements Serializable, UserDetails {
   @Id
   @GeneratedValue(strategy = GenerationType.AUTO)
   private UUID id;
-  private UserRole role;
+
+  @Column(nullable = false, length = 55, unique = true)
   private String login;
+
+  @Column(nullable = false, length = 35)
   private String firstName;
+
+  @Column(nullable = false, length = 125)
   private String lastName;
+
+  @Column(nullable = false)
+  private UserRole role;
+
+  @Column(nullable = false)
   private Timestamp createdAt;
+
+  @Column(nullable = false)
   private String password;
+
   // Farm
 
   public User(String firstName, String lastName, String login, String password, UserRole role, Timestamp createdAt) {
