@@ -5,8 +5,7 @@ import com.sbgroup.haras.models.User;
 import com.sbgroup.haras.repositories.UserRepository;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -42,9 +41,18 @@ public class UserService {
     if (userModel.isEmpty()) {
       return Optional.empty();
     }
-    
+
+    String encryptedPassword = new BCryptPasswordEncoder().encode(userDto.password());
+
+    UserDTO updatedDto = new UserDTO(
+      userDto.login(),
+      userDto.firstName(),
+      userDto.lastName(),
+      userDto.role(),
+      encryptedPassword);
+
     var updatedUser = userModel.get();
-    BeanUtils.copyProperties(userDto, updatedUser);
+    BeanUtils.copyProperties(updatedDto, updatedUser);
     return Optional.of(userRepository.save(updatedUser));
   }
   
