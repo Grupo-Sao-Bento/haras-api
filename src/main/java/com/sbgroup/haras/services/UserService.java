@@ -24,8 +24,8 @@ public class UserService {
   @Autowired
   private TokenService tokenService;
 
-  public Optional<User> getUserByToken(LoginTokenDTO token) {
-    String userId = tokenService.getUserIdFromToken(token.token());
+  public Optional<User> getUserByToken(String token) {
+    String userId = tokenService.getUserIdFromToken(token);
 
     return userRepository.findById(UUID.fromString(userId));
   }

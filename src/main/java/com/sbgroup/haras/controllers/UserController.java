@@ -1,9 +1,9 @@
 package com.sbgroup.haras.controllers;
 
-import com.sbgroup.haras.dtos.LoginTokenDTO;
 import com.sbgroup.haras.dtos.UserDTO;
 import com.sbgroup.haras.models.User;
 import com.sbgroup.haras.services.UserService;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -21,16 +21,18 @@ public class UserController {
   @Autowired()
   UserService userService;
 
-  @PostMapping("/my-info")
-  public ResponseEntity<Object> getUserByToken(@RequestBody @Valid LoginTokenDTO token) {
-    Optional<User> user = userService.getUserByToken(token);
-
-    return ResponseEntity.status(HttpStatus.OK).body(user);
-  }
-
   @GetMapping()
   public ResponseEntity<List<User>> getAllUsers() {
     return ResponseEntity.status(HttpStatus.OK).body(userService.getAllUsers());
+  }
+
+  @GetMapping("/my-info")
+  public ResponseEntity<Object> getUserByToken(HttpServletRequest request) {
+    String token = request.getHeader("Authorization").replace("Bearer ", "");
+
+    Optional<User> user = userService.getUserByToken(token);
+
+    return ResponseEntity.status(HttpStatus.OK).body(user);
   }
 
   @GetMapping("/{id}")
