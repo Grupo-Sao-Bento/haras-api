@@ -1,8 +1,10 @@
 package com.sbgroup.haras.services;
 
+import com.sbgroup.haras.dtos.LoginTokenDTO;
 import com.sbgroup.haras.dtos.UserDTO;
 import com.sbgroup.haras.models.User;
 import com.sbgroup.haras.repositories.UserRepository;
+import com.sbgroup.haras.security.TokenService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -18,7 +20,16 @@ public class UserService {
   
   @Autowired()
   UserRepository userRepository;
-  
+
+  @Autowired
+  private TokenService tokenService;
+
+  public Optional<User> getUserByToken(LoginTokenDTO token) {
+    String userId = tokenService.getUserIdFromToken(token.token());
+
+    return userRepository.findById(UUID.fromString(userId));
+  }
+
   public List<User> getAllUsers() {
     return userRepository.findAll();
   }
