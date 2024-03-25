@@ -1,6 +1,5 @@
 package com.sbgroup.haras.services;
 
-import com.sbgroup.haras.dtos.LoginTokenDTO;
 import com.sbgroup.haras.dtos.UserDTO;
 import com.sbgroup.haras.models.User;
 import com.sbgroup.haras.repositories.UserRepository;
@@ -58,17 +57,5 @@ public class UserService {
     var updatedUser = userModel.get();
     BeanUtils.copyProperties(updatedDto, updatedUser);
     return Optional.of(userRepository.save(updatedUser));
-  }
-  
-  @Transactional()
-  public Optional<User> deleteUserById(UUID userId) {
-    var userModel = userRepository.findById(userId);
-    
-    if (userModel.isEmpty()) {
-      return Optional.empty();
-    }
-
-    userRepository.delete(userModel.get());
-    return userModel;
   }
 }
