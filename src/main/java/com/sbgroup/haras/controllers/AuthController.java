@@ -4,8 +4,8 @@ import com.sbgroup.haras.dtos.AuthDTO;
 import com.sbgroup.haras.dtos.LoginTokenDTO;
 import com.sbgroup.haras.dtos.UserDTO;
 import com.sbgroup.haras.models.User;
-import com.sbgroup.haras.repositories.AuthRepository;
 import com.sbgroup.haras.security.TokenService;
+import com.sbgroup.haras.services.AuthService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -30,41 +30,27 @@ public class AuthController {
   private AuthenticationManager authenticationManager;
 
   @Autowired
-  private AuthRepository authRepository;
+  private AuthService authService;
 
   @Autowired
   private TokenService tokenService;
 
   @PostMapping("/login")
-  public ResponseEntity login(@RequestBody @Valid AuthDTO authData) {
+  public ResponseEntity<Object> login(@RequestBody @Valid AuthDTO authData) {
     var usernamePassword = new UsernamePasswordAuthenticationToken(authData.login(), authData.password());
-    var auth = this.authenticationManager.authenticate(usernamePassword);
-
+    var auth = authenticationManager.authenticate(usernamePassword);
     var token = tokenService.generateToken((User) auth.getPrincipal());
 
     return ResponseEntity.ok(new LoginTokenDTO(token));
   }
 
   @PostMapping("/register")
-  public ResponseEntity register(@RequestBody @Valid UserDTO data) {
-    if (this.authRepository.findByLogin(data.login()) != null) {
+  public ResponseEntity<Object> register(@RequestBody @Valid UserDTO data) {
+    if (authService.loadUserByUsername(data.login()) != null) {
       return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("User already exists");
 
     } else {
-      String encryptedPassword = new BCryptPasswordEncoder().encode(data.password());
-      Timestamp now = Timestamp.from(LocalDateTime.now().toInstant(ZoneOffset.of("-03:00")));
-
-      User newAuth = new User(
-        data.firstName(),
-        data.lastName(),
-        data.login(),
-        encryptedPassword,
-        data.role(),
-        now);
-
-      this.authRepository.save(newAuth);
-
-      return ResponseEntity.status(HttpStatus.OK).body("User created successfully");
+      return ResponseEntity.status(HttpStatus.OK).body(authService.registerUser(data));
     }
   }
 }
