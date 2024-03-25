@@ -25,13 +25,13 @@ public class User implements Serializable, UserDetails {
   @GeneratedValue(strategy = GenerationType.AUTO)
   private UUID id;
 
-  @Column(nullable = false, length = 55, unique = true)
+  @Column(nullable = false, unique = true)
   private String login;
 
-  @Column(nullable = false, length = 35)
+  @Column(nullable = false)
   private String firstName;
 
-  @Column(nullable = false, length = 125)
+  @Column(nullable = false)
   private String lastName;
 
   @Column(nullable = false)
