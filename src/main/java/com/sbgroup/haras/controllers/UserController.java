@@ -21,11 +21,6 @@ public class UserController {
   @Autowired()
   UserService userService;
   
-  @PostMapping()
-  public ResponseEntity<User> saveUser(@RequestBody @Valid UserDTO newUserDto) {
-    return ResponseEntity.status(HttpStatus.CREATED).body(userService.saveUser(newUserDto));
-  }
-  
   @GetMapping()
   public ResponseEntity<List<User>> getAllUsers() {
     return ResponseEntity.status(HttpStatus.OK).body(userService.getAllUsers());

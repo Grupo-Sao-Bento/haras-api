@@ -19,13 +19,6 @@ public class UserService {
   @Autowired()
   UserRepository userRepository;
   
-  @Transactional()
-  public User saveUser(UserDTO newUserDto) {
-    var newUserModel = new User();
-    BeanUtils.copyProperties(newUserDto, newUserModel);
-    return newUserModel;
-  }
-  
   public List<User> getAllUsers() {
     return userRepository.findAll();
   }
