@@ -42,6 +42,6 @@ public class AuthService implements UserDetailsService {
     
     BeanUtils.copyProperties(userDTO, newAuth);
 
-    return newAuth;
+    return authRepository.save(newAuth);
   }
 }
