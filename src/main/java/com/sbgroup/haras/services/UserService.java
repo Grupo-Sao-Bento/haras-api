@@ -53,10 +53,12 @@ public class UserService {
       userDto.firstName(),
       userDto.lastName(),
       userDto.role(),
-      encryptedPassword);
+      encryptedPassword
+    );
 
     var updatedUser = userModel.get();
     BeanUtils.copyProperties(updatedDto, updatedUser);
+
     return Optional.of(userRepository.save(updatedUser));
   }
 }

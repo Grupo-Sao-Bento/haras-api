@@ -11,5 +11,5 @@ public record UserDTO(
   @NotBlank @Size(max = 35) String firstName,
   @NotBlank @Size(max = 125) String lastName,
   @NotNull UserRole role,
-  @NotBlank String password) {
+  @NotBlank String password ) {
 }

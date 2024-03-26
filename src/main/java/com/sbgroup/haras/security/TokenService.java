@@ -54,6 +54,7 @@ public class TokenService {
   public String getUserIdFromToken(String token) {
     try {
       DecodedJWT jwt = JWT.decode(token);
+
       return jwt.getClaim("userId").toString().replace("\"", "");
     } catch (JWTDecodeException exception) {
       return "";

@@ -31,7 +31,6 @@ public class UserController {
   @GetMapping("/my-info")
   public ResponseEntity<Object> getUserByToken(HttpServletRequest request) {
     String token = request.getHeader("Authorization").replace("Bearer ", "");
-
     Optional<User> user = userService.getUserByToken(token);
 
     return ResponseEntity.status(HttpStatus.OK).body(user);
