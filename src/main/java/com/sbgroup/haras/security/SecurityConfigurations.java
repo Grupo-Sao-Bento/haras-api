@@ -28,10 +28,9 @@ public class SecurityConfigurations {
       .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
       .authorizeHttpRequests(authorize -> authorize
         .requestMatchers(HttpMethod.POST, "/auth/register").hasRole("MASTER")
-        .requestMatchers(HttpMethod.GET, "/users").hasRole("MASTER")
-        .requestMatchers(HttpMethod.DELETE, "/users").hasRole("MASTER")
-        .requestMatchers(HttpMethod.PUT, "/users").hasRole("MASTER")
         .requestMatchers(HttpMethod.POST, "/auth/login").permitAll()
+        .requestMatchers(HttpMethod.GET, "/users").hasRole("MASTER")
+        .requestMatchers(HttpMethod.PUT, "/users").hasRole("MASTER")
         .anyRequest().authenticated())
       .addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class)
       .build();
