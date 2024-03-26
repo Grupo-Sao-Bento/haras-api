@@ -1,11 +1,15 @@
 package com.sbgroup.haras.models;
 
 import com.sbgroup.haras.enums.UserRole;
-import jakarta.persistence.*;
+
 import lombok.*;
+
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+
+import jakarta.persistence.*;
+
 import java.io.Serializable;
 import java.sql.Timestamp;
 import java.util.Collection;

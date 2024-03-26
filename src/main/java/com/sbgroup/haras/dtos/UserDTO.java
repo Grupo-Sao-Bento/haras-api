@@ -1,6 +1,7 @@
 package com.sbgroup.haras.dtos;
 
 import com.sbgroup.haras.enums.UserRole;
+
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
