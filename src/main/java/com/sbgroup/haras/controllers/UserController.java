@@ -19,7 +19,7 @@ import java.util.UUID;
 public class UserController {
   
   @Autowired()
-  UserService userService;
+  private UserService userService;
 
   @GetMapping()
   public ResponseEntity<List<User>> getAllUsers() {

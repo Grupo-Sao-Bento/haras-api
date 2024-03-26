@@ -14,13 +14,12 @@ import org.springframework.stereotype.Service;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
-import java.util.Optional;
 
 @Service
 public class AuthService implements UserDetailsService {
 
   @Autowired
-  AuthRepository authRepository;
+  private AuthRepository authRepository;
 
   @Override
   public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
