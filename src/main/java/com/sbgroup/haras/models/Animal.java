@@ -1,6 +1,8 @@
 package com.sbgroup.haras.models;
 
+import com.sbgroup.haras.enums.AnimalCoat;
 import com.sbgroup.haras.enums.AnimalGender;
+import com.sbgroup.haras.enums.AnimalType;
 import com.sbgroup.haras.enums.UserRole;
 import jakarta.persistence.*;
 import lombok.*;
@@ -31,13 +33,15 @@ public class Animal implements Serializable {
 
   @Column(nullable = false)
   private String name;
-
-  // AnimalTypes (TABLE: id, name)
+  
+  @Column(nullable = false)
+  private AnimalType type;
   
   @Column(nullable = false)
   private AnimalGender gender;
-
-  // Coat (TABLE: id, name)
+  
+  @Column(nullable = false)
+  private AnimalCoat coat;
   
   @Column(nullable = false)
   private User createdBy;
@@ -53,11 +57,11 @@ public class Animal implements Serializable {
 
   // Farm
 
-  public Animal(String name, /* AnimalTypes type, */ AnimalGender gender, /* Coat coat, */ User createdBy, Timestamp createdAt) {
+  public Animal(String name, AnimalType type, AnimalGender gender, AnimalCoat coat, User createdBy, Timestamp createdAt) {
     this.name = name;
-    // this.type = type;
+    this.type = type;
     this.gender = gender;
-    // this.coat = coat
+    this.coat = coat;
     this.createdBy = createdBy;
     this.createdAt = createdAt;
   }
