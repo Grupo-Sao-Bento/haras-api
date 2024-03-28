@@ -22,7 +22,7 @@ public class AnimalController {
   @Autowired()
   private AnimalService animalService;
 
-  @PostMapping("/register")
+  @PostMapping()
   public ResponseEntity<Object> register(@RequestBody @Valid AnimalDTO data) {
       return ResponseEntity.status(HttpStatus.OK).body(animalService.registerAnimal(data));
   }
@@ -47,5 +47,14 @@ public class AnimalController {
 
   // Update
 
-  // Delete
+  @DeleteMapping("/{id}")
+  public ResponseEntity<Object> deleteAnimalById(@PathVariable(value = "id") UUID animalId) {
+    Optional<Animal> animalModel = animalService.deleteAnimalById(animalId);
+
+    if (animalModel.isEmpty()) {
+      return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Animal id not found");
+    }
+
+    return ResponseEntity.status(HttpStatus.OK).body("Animal deleted successfuly");
+  }
 }

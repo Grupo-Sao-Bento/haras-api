@@ -43,7 +43,19 @@ public class AnimalService {
     return animalRepository.findById(animalId);
   }
 
+  // Get by name (list)
+
   // Update
 
-  // Delete
+  @Transactional()
+  public Optional<Animal> deleteAnimalById(UUID animalId) {
+    var animalModel = animalRepository.findById(animalId);
+
+    if (animalModel.isEmpty()) {
+      return Optional.empty();
+    }
+
+    animalRepository.delete(animalModel.get());
+    return animalModel;
+  }
 }
