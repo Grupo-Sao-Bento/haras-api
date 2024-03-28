@@ -3,17 +3,13 @@ package com.sbgroup.haras.models;
 import com.sbgroup.haras.enums.AnimalCoat;
 import com.sbgroup.haras.enums.AnimalGender;
 import com.sbgroup.haras.enums.AnimalType;
-import com.sbgroup.haras.enums.UserRole;
 import jakarta.persistence.*;
 import lombok.*;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
 
 import java.io.Serializable;
 import java.sql.Timestamp;
-import java.util.Collection;
-import java.util.List;
 import java.util.UUID;
 
 @Getter
@@ -42,14 +38,20 @@ public class Animal implements Serializable {
   
   @Column(nullable = false)
   private AnimalCoat coat;
-  
-  @Column(nullable = false)
+
+  @ManyToOne
+  @JoinColumn(nullable = false)
+  @JsonBackReference
   private User createdBy;
 
   @Column(nullable = false)
   private Timestamp createdAt;
 
+  @ManyToOne
+  @JoinColumn
+  @JsonBackReference
   private User updatedBy;
+
   private Timestamp updatedAt;
 
   // Farm
