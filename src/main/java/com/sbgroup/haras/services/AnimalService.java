@@ -1,7 +1,10 @@
 package com.sbgroup.haras.services;
 
 import com.sbgroup.haras.dtos.AnimalDTO;
+import com.sbgroup.haras.dtos.AnimalDTO;
 import com.sbgroup.haras.models.Animal;
+import com.sbgroup.haras.models.Animal;
+import com.sbgroup.haras.models.User;
 import com.sbgroup.haras.repositories.AnimalRepository;
 
 import org.springframework.beans.BeanUtils;
@@ -45,7 +48,22 @@ public class AnimalService {
 
   // Get by name (list)
 
-  // Update
+  @Transactional()
+  public Optional<Animal> updateAnimalById(AnimalDTO animalDto, UUID animalId, User authUser) {
+    var animalModel = animalRepository.findById(animalId);
+
+    if (animalModel.isEmpty()) {
+      return Optional.empty();
+    }
+
+    Timestamp now = Timestamp.from(LocalDateTime.now().toInstant(ZoneOffset.of("-03:00")));
+    var updatedAnimal = animalModel.get();
+    BeanUtils.copyProperties(animalDto, updatedAnimal);
+    updatedAnimal.setUpdatedAt(now);
+    updatedAnimal.setUpdatedBy(authUser);
+
+    return Optional.of(animalRepository.save(updatedAnimal));
+  }
 
   @Transactional()
   public Optional<Animal> deleteAnimalById(UUID animalId) {
