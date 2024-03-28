@@ -1,15 +1,12 @@
 package com.sbgroup.haras.services;
 
 import com.sbgroup.haras.dtos.AnimalDTO;
-import com.sbgroup.haras.dtos.AnimalDTO;
-import com.sbgroup.haras.models.Animal;
 import com.sbgroup.haras.models.Animal;
 import com.sbgroup.haras.models.User;
 import com.sbgroup.haras.repositories.AnimalRepository;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -41,12 +38,14 @@ public class AnimalService {
   public List<Animal> getAllAnimals() {
     return animalRepository.findAll();
   }
+
+  public List<Animal> getAnimalsByName(String animalName) {
+    return animalRepository.findAllByName(animalName);
+  }
   
   public Optional<Animal> getAnimalById(UUID animalId) {
     return animalRepository.findById(animalId);
   }
-
-  // Get by name (list)
 
   @Transactional()
   public Optional<Animal> updateAnimalById(AnimalDTO animalDto, UUID animalId, User authUser) {

@@ -40,6 +40,13 @@ public class AnimalController {
     return ResponseEntity.status(HttpStatus.OK).body(animalService.getAllAnimals());
   }
 
+  @GetMapping("/name/{name}")
+  public ResponseEntity<Object> getAnimalsByName(@PathVariable(value = "name") String animalName) {
+    List<Animal> animals = animalService.getAnimalsByName(animalName);
+
+    return ResponseEntity.status(HttpStatus.OK).body(animals);
+  }
+
   @GetMapping("/{id}")
   public ResponseEntity<Object> getAnimalById(@PathVariable(value = "id") UUID animalId) {
     Optional<Animal> animalModel = animalService.getAnimalById(animalId);
@@ -50,8 +57,6 @@ public class AnimalController {
 
     return ResponseEntity.status(HttpStatus.OK).body(animalModel);
   }
-
-  // Get by name (list)
 
   @PutMapping("/{id}")
   public ResponseEntity<Object> updateAnimalById(@RequestBody @Valid AnimalDTO animalDto,
