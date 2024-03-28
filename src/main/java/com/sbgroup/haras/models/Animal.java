@@ -48,11 +48,8 @@ public class Animal implements Serializable {
 
   @Column(nullable = false)
   private Timestamp createdAt;
-  
-  @Column(nullable = false)
+
   private User updatedBy;
-  
-  @Column(nullable = false)
   private Timestamp updatedAt;
 
   // Farm
