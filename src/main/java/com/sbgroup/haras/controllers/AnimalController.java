@@ -52,13 +52,14 @@ public class AnimalController {
                                 @RequestParam(defaultValue = "10") int size ) {
     List<Animal> animals = animalService.getAllAnimals(page, size);
 
-    PaginatedResponseUtil<Animal> response = new PaginatedResponseUtil<>();
-    response.setContent(animals);
-    response.setCurrentPage(page);
-    response.setTotalPages(animalService.getAnimalsTotalPages(size));
-    response.setTotalElements(animalService.getAnimalsTotalElements());
+    PaginatedResponseUtil<Animal> paginatedResponse = new PaginatedResponseUtil<>(
+      animals,
+      page,
+      animalService.getAnimalsTotalPages(size),
+      animalService.getAnimalsTotalElements()
+    );
 
-    return ResponseEntity.status(HttpStatus.OK).body(response);
+    return ResponseEntity.status(HttpStatus.OK).body(paginatedResponse);
   }
 
   @GetMapping("/name/{name}")
