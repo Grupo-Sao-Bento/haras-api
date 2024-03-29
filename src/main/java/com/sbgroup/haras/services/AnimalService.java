@@ -4,6 +4,7 @@ import com.sbgroup.haras.dtos.AnimalDTO;
 import com.sbgroup.haras.models.Animal;
 import com.sbgroup.haras.models.User;
 import com.sbgroup.haras.repositories.AnimalRepository;
+import com.sbgroup.haras.utils.TimeUtil;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,12 +26,10 @@ public class AnimalService {
 
   @Transactional()
   public Animal registerAnimal(AnimalDTO animalDTO, User authUser) {
-    Timestamp now = Timestamp.from(LocalDateTime.now().toInstant(ZoneOffset.of("-03:00")));
-
     var newAnimal = new Animal();
 
     BeanUtils.copyProperties(animalDTO, newAnimal);
-    newAnimal.setCreatedAt(now);
+    newAnimal.setCreatedAt(TimeUtil.getCurrentTimestamp());
     newAnimal.setCreatedBy(authUser);
 
     return animalRepository.save(newAnimal);
@@ -56,10 +55,9 @@ public class AnimalService {
       return Optional.empty();
     }
 
-    Timestamp now = Timestamp.from(LocalDateTime.now().toInstant(ZoneOffset.of("-03:00")));
     var updatedAnimal = animalModel.get();
     BeanUtils.copyProperties(animalDto, updatedAnimal);
-    updatedAnimal.setUpdatedAt(now);
+    updatedAnimal.setUpdatedAt(TimeUtil.getCurrentTimestamp());
     updatedAnimal.setUpdatedBy(authUser);
 
     return Optional.of(animalRepository.save(updatedAnimal));
