@@ -9,8 +9,8 @@ public class TimeUtil {
 
   public static Timestamp getCurrentTimestamp() {
     LocalDateTime currentTime = LocalDateTime.now();
-    ZoneId countryZone = ZoneId.of("America/Sao_Paulo");
-    Instant instant = currentTime.atZone(countryZone).toInstant();
+    ZoneId brazilZone = ZoneId.of("America/Sao_Paulo");
+    Instant instant = currentTime.atZone(ZoneId.of("UTC")).withZoneSameInstant(brazilZone).toInstant();
 
     return Timestamp.from(instant);
   }
