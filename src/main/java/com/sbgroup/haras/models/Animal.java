@@ -39,7 +39,6 @@ public class Animal implements Serializable {
 
   @ManyToOne
   @JoinColumn(nullable = false)
-  @JsonBackReference
   private User createdBy;
 
   @Column(nullable = false)
@@ -47,7 +46,6 @@ public class Animal implements Serializable {
 
   @ManyToOne
   @JoinColumn
-  @JsonBackReference
   private User updatedBy;
 
   private Timestamp updatedAt;
