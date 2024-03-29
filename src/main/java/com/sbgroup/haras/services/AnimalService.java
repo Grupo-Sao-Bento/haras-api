@@ -88,4 +88,5 @@ public class AnimalService {
     animalRepository.delete(animalModel.get());
     return animalModel;
   }
+
 }

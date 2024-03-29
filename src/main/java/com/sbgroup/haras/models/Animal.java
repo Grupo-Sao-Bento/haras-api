@@ -21,8 +21,6 @@ import java.util.UUID;
 @Table(name = "Animals")
 public class Animal implements Serializable {
 
-  // Order by page
-  
   @Id
   @GeneratedValue(strategy = GenerationType.AUTO)
   private UUID id;

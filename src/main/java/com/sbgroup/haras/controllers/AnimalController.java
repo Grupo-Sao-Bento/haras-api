@@ -1,8 +1,6 @@
 package com.sbgroup.haras.controllers;
 
 import com.sbgroup.haras.dtos.AnimalDTO;
-import com.sbgroup.haras.dtos.AnimalDTO;
-import com.sbgroup.haras.models.Animal;
 import com.sbgroup.haras.models.Animal;
 import com.sbgroup.haras.models.User;
 import com.sbgroup.haras.services.AnimalService;
@@ -10,7 +8,6 @@ import com.sbgroup.haras.services.AnimalService;
 import com.sbgroup.haras.services.UserService;
 import com.sbgroup.haras.utils.PaginatedResponseUtil;
 import jakarta.servlet.http.HttpServletRequest;
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -111,4 +108,5 @@ public class AnimalController {
 
     return ResponseEntity.status(HttpStatus.OK).body("Animal deleted successfuly");
   }
+
 }

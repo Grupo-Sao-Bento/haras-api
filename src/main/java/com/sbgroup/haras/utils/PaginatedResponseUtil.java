@@ -17,4 +17,5 @@ public class PaginatedResponseUtil<T> {
   private int currentPage;
   private int totalPages;
   private long totalElements;
+
 }
