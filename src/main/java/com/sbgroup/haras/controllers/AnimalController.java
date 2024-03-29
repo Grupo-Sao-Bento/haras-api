@@ -8,6 +8,7 @@ import com.sbgroup.haras.models.User;
 import com.sbgroup.haras.services.AnimalService;
 
 import com.sbgroup.haras.services.UserService;
+import com.sbgroup.haras.utils.PaginatedResponseUtil;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,8 +47,18 @@ public class AnimalController {
   }
 
   @GetMapping()
-  public ResponseEntity<List<Animal>> getAllAnimals() {
-    return ResponseEntity.status(HttpStatus.OK).body(animalService.getAllAnimals());
+  public ResponseEntity<PaginatedResponseUtil<Animal>> getAllAnimals(
+                                @RequestParam(defaultValue = "0") int page,
+                                @RequestParam(defaultValue = "10") int size ) {
+    List<Animal> animals = animalService.getAllAnimals(page, size);
+
+    PaginatedResponseUtil<Animal> response = new PaginatedResponseUtil<>();
+    response.setContent(animals);
+    response.setCurrentPage(page);
+    response.setTotalPages(animalService.getAnimalsTotalPages(size));
+    response.setTotalElements(animalService.getAnimalsTotalElements());
+
+    return ResponseEntity.status(HttpStatus.OK).body(response);
   }
 
   @GetMapping("/name/{name}")

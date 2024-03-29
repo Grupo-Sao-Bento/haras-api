@@ -8,12 +8,12 @@ import com.sbgroup.haras.utils.TimeUtil;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.sql.Timestamp;
-import java.time.LocalDateTime;
-import java.time.ZoneOffset;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -35,8 +35,22 @@ public class AnimalService {
     return animalRepository.save(newAnimal);
   }
 
-  public List<Animal> getAllAnimals() {
-    return animalRepository.findAll();
+  public List<Animal> getAllAnimals(int page, int size) {
+    Pageable pageable = PageRequest.of(page, size);
+    Page<Animal> animalsPage = animalRepository.findAll(pageable);
+
+    return animalsPage.getContent();
+  }
+
+  public long getAnimalsTotalElements() {
+    return animalRepository.count();
+  }
+
+  public int getAnimalsTotalPages(int size) {
+    Pageable pageable = PageRequest.of(0, size);
+    long totalElements = getAnimalsTotalElements();
+
+    return (int) Math.ceil((double) totalElements / (double) size);
   }
 
   public List<Animal> getAnimalsByName(String animalName) {
