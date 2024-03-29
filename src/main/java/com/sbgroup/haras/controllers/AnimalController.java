@@ -41,7 +41,7 @@ public class AnimalController {
       return ResponseEntity.status(HttpStatus.OK).body(animalService.registerAnimal(data, userModel));
 
     } else {
-      throw new RuntimeException("User identity error");
+      return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Error identifying user by token");
     }
   }
 
@@ -85,7 +85,7 @@ public class AnimalController {
       return ResponseEntity.status(HttpStatus.OK).body(animalModel);
 
     } else {
-      throw new RuntimeException("User identity error");
+      return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Error identifying user by token");
     }
   }
 
