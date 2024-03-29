@@ -24,13 +24,14 @@ public class AnimalService {
   private AnimalRepository animalRepository;
 
   @Transactional()
-  public Animal registerAnimal(AnimalDTO animalDTO) {
+  public Animal registerAnimal(AnimalDTO animalDTO, User authUser) {
     Timestamp now = Timestamp.from(LocalDateTime.now().toInstant(ZoneOffset.of("-03:00")));
 
     var newAnimal = new Animal();
 
     BeanUtils.copyProperties(animalDTO, newAnimal);
     newAnimal.setCreatedAt(now);
+    newAnimal.setCreatedBy(authUser);
 
     return animalRepository.save(newAnimal);
   }

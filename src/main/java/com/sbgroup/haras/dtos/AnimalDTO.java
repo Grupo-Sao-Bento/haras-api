@@ -14,6 +14,5 @@ public record AnimalDTO(
   @NotBlank String name,
   @NotNull AnimalType type,
   @NotNull AnimalGender gender,
-  @NotNull AnimalCoat coat,
-  @NotNull User createdBy ) {
+  @NotNull AnimalCoat coat ) {
 }

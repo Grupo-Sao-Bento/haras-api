@@ -9,6 +9,7 @@ import com.sbgroup.haras.services.AnimalService;
 
 import com.sbgroup.haras.services.UserService;
 import jakarta.servlet.http.HttpServletRequest;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -31,8 +32,17 @@ public class AnimalController {
   private UserService userService;
 
   @PostMapping()
-  public ResponseEntity<Object> register(@RequestBody @Valid AnimalDTO data) {
-      return ResponseEntity.status(HttpStatus.OK).body(animalService.registerAnimal(data));
+  public ResponseEntity<Object> register(@RequestBody @Valid AnimalDTO data, HttpServletRequest request) {
+    String token = request.getHeader("Authorization").replace("Bearer ", "");
+    Optional<User> user = userService.getUserByToken(token);
+
+    if (user.isPresent()) {
+      User userModel = user.get();
+      return ResponseEntity.status(HttpStatus.OK).body(animalService.registerAnimal(data, userModel));
+
+    } else {
+      throw new RuntimeException("User identity error");
+    }
   }
 
   @GetMapping()
