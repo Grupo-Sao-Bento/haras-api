@@ -15,7 +15,7 @@ public record AnimalDTO(
   @NotNull AnimalGender gender,
   @NotNull AnimalCoat coat,
   Timestamp birthDate,
-  String registerNumber,
+  String registry,
   String owner,
   boolean isAlive,
   double dailyFee ) {

@@ -50,7 +50,7 @@ public class Animal implements Serializable {
 
   private Timestamp updatedAt;
   private Timestamp birthDate;
-  private String registerNumber;
+  private String registry;
   private String owner; // TODO: Change type
   private boolean isAlive;
   private double dailyFee;
