@@ -17,7 +17,7 @@ public class HarasApplication {
   @Bean
   public CommandLineRunner init(@Autowired AuthService authService) {
     return args -> {
-      if (authService.loadUserByUsername("master") == null) {
+      if (authService.loadUserByUsername("master@email.com") == null) {
 
         UserDTO masterUser = new UserDTO(
           "master@email.com",
