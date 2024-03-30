@@ -37,7 +37,7 @@ public class HarasApplication {
           
            CAUTION: Master User registered automatically!
            
-           LOGIN: master
+           LOGIN: master@email.com
            PASSWORD: master
            
            REMOVE METHOD BEFORE RUN IN PRODUCTION:
