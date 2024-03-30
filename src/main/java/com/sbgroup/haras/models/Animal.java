@@ -49,8 +49,16 @@ public class Animal implements Serializable {
   private User updatedBy;
 
   private Timestamp updatedAt;
-
-  // Farm
+  private Timestamp birthDate;
+  private String registerNumber;
+  private String owner; // TODO: Change type
+  private boolean isAlive;
+  private double dailyRate;
+  // TODO: Dad
+  // TODO: Mom
+  // TODO: Stays
+  // TODO: Procedures
+  // TODO: Farm
 
   public Animal(String name, AnimalType type, AnimalGender gender, AnimalCoat coat, User createdBy, Timestamp createdAt) {
     this.name = name;
