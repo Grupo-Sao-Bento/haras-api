@@ -21,10 +21,14 @@ public class SecurityConfigurations {
   @Autowired
   private SecurityFilter securityFilter;
 
+  @Autowired
+  private CorsConfigurationSourceImpl corsConfigurationSource;
+
   @Bean
   public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception{
     return httpSecurity
       .csrf(csrf -> csrf.disable())
+      .cors(cors -> cors.configurationSource(corsConfigurationSource))
       .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
       .authorizeHttpRequests(authorize -> authorize
         .requestMatchers(HttpMethod.POST, "/auth/register").hasRole("MASTER")
