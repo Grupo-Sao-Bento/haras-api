@@ -30,13 +30,13 @@ public class AnimalController {
   private UserService userService;
 
   @PostMapping()
-  public ResponseEntity<Object> register(@RequestBody @Valid AnimalDTO data, HttpServletRequest request) {
+  public ResponseEntity<Object> register(@RequestBody @Valid AnimalDTO animalDTO, HttpServletRequest request) {
     String token = request.getHeader("Authorization").replace("Bearer ", "");
     Optional<User> user = userService.getUserByToken(token);
 
     if (user.isPresent()) {
       User userModel = user.get();
-      return ResponseEntity.status(HttpStatus.OK).body(animalService.registerAnimal(data, userModel));
+      return ResponseEntity.status(HttpStatus.OK).body(animalService.registerAnimal(animalDTO, userModel));
 
     } else {
       return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Error identifying user by token");
