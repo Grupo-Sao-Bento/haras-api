@@ -53,7 +53,7 @@ public class Animal implements Serializable {
   private String registerNumber;
   private String owner; // TODO: Change type
   private boolean isAlive;
-  private double dailyRate;
+  private double dailyFee;
   // TODO: Dad
   // TODO: Mom
   // TODO: Stays
