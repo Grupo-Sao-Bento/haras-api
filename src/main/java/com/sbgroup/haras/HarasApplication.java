@@ -20,7 +20,7 @@ public class HarasApplication {
       if (authService.loadUserByUsername("master") == null) {
 
         UserDTO masterUser = new UserDTO(
-          "master",
+          "master@email.com",
           "master-user",
           "master-user",
           UserRole.MASTER,
