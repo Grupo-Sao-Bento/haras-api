@@ -18,5 +18,5 @@ public record AnimalDTO(
   String registry,
   String owner,
   boolean isAlive,
-  double dailyFee ) {
-}
+  double dailyFee
+) {}

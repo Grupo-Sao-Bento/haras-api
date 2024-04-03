@@ -42,12 +42,13 @@ public class AuthController {
   }
 
   @PostMapping("/register")
-  public ResponseEntity<Object> register(@RequestBody @Valid UserDTO data) {
-    if (authService.loadUserByUsername(data.login()) != null) {
+  public ResponseEntity<Object> register(@RequestBody @Valid UserDTO userDTO) {
+    if (authService.loadUserByUsername(userDTO.login()) != null) {
       return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("User already exists");
 
-    } else {
-      return ResponseEntity.status(HttpStatus.OK).body(authService.registerUser(data));
     }
+    
+    return ResponseEntity.status(HttpStatus.OK).body(authService.registerUser(userDTO));
   }
+  
 }

@@ -17,10 +17,10 @@ public class HarasApplication {
   @Bean
   public CommandLineRunner init(@Autowired AuthService authService) {
     return args -> {
-      if (authService.loadUserByUsername("master") == null) {
+      if (authService.loadUserByUsername("master@email.com") == null) {
 
         UserDTO masterUser = new UserDTO(
-          "master",
+          "master@email.com",
           "master-user",
           "master-user",
           UserRole.MASTER,
@@ -37,7 +37,7 @@ public class HarasApplication {
           
            CAUTION: Master User registered automatically!
            
-           LOGIN: master
+           LOGIN: master@email.com
            PASSWORD: master
            
            REMOVE METHOD BEFORE RUN IN PRODUCTION:

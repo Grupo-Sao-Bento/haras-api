@@ -1,12 +1,12 @@
 package com.sbgroup.haras.models;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.sbgroup.haras.enums.AnimalCoat;
 import com.sbgroup.haras.enums.AnimalGender;
 import com.sbgroup.haras.enums.AnimalType;
-import jakarta.persistence.*;
-import lombok.*;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
+import lombok.*;
+import jakarta.persistence.*;
 
 import java.io.Serializable;
 import java.sql.Timestamp;
@@ -48,11 +48,13 @@ public class Animal implements Serializable {
   @JoinColumn
   private User updatedBy;
 
+  @JsonProperty(value="isAlive")
+  private boolean isAlive;
+
   private Timestamp updatedAt;
   private Timestamp birthDate;
   private String registry;
   private String owner; // TODO: Change type
-  private boolean isAlive;
   private double dailyFee;
   // TODO: Dad
   // TODO: Mom
