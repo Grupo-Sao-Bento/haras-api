@@ -10,5 +10,5 @@ public record UserDTO(
   @NotBlank String firstName,
   @NotBlank String lastName,
   @NotNull UserRole role,
-  @NotBlank String password ) {
-}
+  @NotBlank String password
+) {}

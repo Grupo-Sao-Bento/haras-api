@@ -46,8 +46,8 @@ public class User implements Serializable, UserDetails {
 
   @Column(nullable = false)
   private String password;
-
-  // Farm
+  
+  // TODO: Farm
 
   public User(String firstName, String lastName, String login, String password, UserRole role, Timestamp createdAt) {
     this.firstName = firstName;
@@ -100,4 +100,5 @@ public class User implements Serializable, UserDetails {
   public boolean isEnabled() {
     return true;
   }
+  
 }
