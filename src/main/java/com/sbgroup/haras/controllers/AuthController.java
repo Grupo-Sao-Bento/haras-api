@@ -46,9 +46,9 @@ public class AuthController {
     if (authService.loadUserByUsername(userDTO.login()) != null) {
       return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("User already exists");
 
-    } else {
-      return ResponseEntity.status(HttpStatus.OK).body(authService.registerUser(userDTO));
     }
+    
+    return ResponseEntity.status(HttpStatus.OK).body(authService.registerUser(userDTO));
   }
   
 }

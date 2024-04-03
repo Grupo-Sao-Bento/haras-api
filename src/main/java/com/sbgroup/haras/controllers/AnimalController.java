@@ -38,9 +38,9 @@ public class AnimalController {
       User userModel = user.get();
       return ResponseEntity.status(HttpStatus.OK).body(animalService.registerAnimal(animalDTO, userModel));
 
-    } else {
-      return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Error identifying user by token");
     }
+    
+    return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Error identifying user by token");
   }
 
   @GetMapping()
@@ -93,9 +93,9 @@ public class AnimalController {
 
       return ResponseEntity.status(HttpStatus.OK).body(animalModel);
 
-    } else {
-      return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Error identifying user by token");
     }
+    
+    return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Error identifying user by token");
   }
 
   @DeleteMapping("/{id}")
