@@ -12,6 +12,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.AuthenticationException;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -35,10 +36,16 @@ public class AuthController {
   @PostMapping("/login")
   public ResponseEntity<Object> login(@RequestBody @Valid AuthDTO authData) {
     var usernamePassword = new UsernamePasswordAuthenticationToken(authData.login(), authData.password());
-    var auth = authenticationManager.authenticate(usernamePassword);
-    var token = tokenService.generateToken((User) auth.getPrincipal());
 
-    return ResponseEntity.status(HttpStatus.OK).body(new LoginTokenDTO(token));
+    try {
+      var auth = authenticationManager.authenticate(usernamePassword);
+      var token = tokenService.generateToken((User) auth.getPrincipal());
+
+      return ResponseEntity.status(HttpStatus.OK).body(new LoginTokenDTO(token));
+
+    } catch (AuthenticationException e) {
+      return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("ERROR: Invalid credentials");
+    }
   }
 
   @PostMapping("/register")
