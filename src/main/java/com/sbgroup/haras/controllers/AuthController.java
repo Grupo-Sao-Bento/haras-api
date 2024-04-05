@@ -13,10 +13,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.AuthenticationException;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.web.bind.annotation.*;
 
 import jakarta.validation.Valid;
 
@@ -55,6 +53,15 @@ public class AuthController {
     }
     
     return ResponseEntity.status(HttpStatus.OK).body(authService.registerUser(userDTO));
+  }
+
+  @GetMapping("/relogin")
+  public ResponseEntity<Object> relogin() {
+    var authentication = SecurityContextHolder.getContext().getAuthentication();
+    User userDetails = (User) authentication.getPrincipal();
+    String newToken = tokenService.generateToken(userDetails);
+
+    return ResponseEntity.status(HttpStatus.OK).body(new LoginTokenDTO(newToken));
   }
   
 }
