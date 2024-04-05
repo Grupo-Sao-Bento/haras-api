@@ -32,48 +32,33 @@ public class Client implements Serializable {
     private String email;
 
     @Column(nullable = false)
-    private String address;
-
-    @Column(nullable = false)
-    private String city;
-
-    @Column(nullable = false)
-    private String state;
-
-    @Column(nullable = false)
-    private String country;
-
-    @Column(nullable = false)
-    private String cep;
-
-    @Column(nullable = false)
     private Timestamp createdAt;
 
     @ManyToOne
     @JoinColumn(nullable = false)
     private User createdBy;
 
-    private Timestamp updateAt;
-
     @ManyToOne
+    @JoinColumn
     private User updateBy;
 
-//    @ManyToOne
-//    @JoinColumn(nullable = false)
-//    private Farm farm;
+    private String cpf;
+    private String cnpj;
+    private String address;
+    private String city;
+    private String state;
+    private String country;
+    private String cep;
+    private Timestamp updateAt;
+    // TODO: Farm
 
-    public Client(String firstName, String lastName, String phoneNumber, String email, String address, String city,
-                  String state, String country, String cep, Timestamp createdAt, User createdBy) {
+    public Client(String firstName, String lastName, String phoneNumber, String email, Timestamp createdAt, User createdBy) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.phoneNumber = phoneNumber;
         this.email = email;
-        this.address = address;
-        this.city = city;
-        this.state = state;
-        this.country = country;
-        this.cep = cep;
         this.createdAt = createdAt;
         this.createdBy = createdBy;
     }
+
 }

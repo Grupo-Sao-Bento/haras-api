@@ -51,8 +51,8 @@ public class ClientService {
     return (int) Math.ceil((double) totalElements / (double) size);
   }
 
-  public List<Client> getClientByFirstName(String firstName) {
-    return clientRepository.findAllByFirstName(firstName);
+  public List<Client> getClientByNameAndLastName(String firstName, String lastName) {
+    return clientRepository.findNameAndLastName(firstName, lastName);
   }
   
   public Optional<Client> getClientById(UUID clientId) {

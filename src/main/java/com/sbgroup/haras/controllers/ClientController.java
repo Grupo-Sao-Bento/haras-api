@@ -34,11 +34,11 @@ public class ClientController {
     if (user.isPresent()) {
       User userModel = user.get();
       return ResponseEntity.status(HttpStatus.OK).body(clientService.registerClient(clientDTO, userModel));
-
-    } else {
-      return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Error identifying user by token");
     }
+
+    return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Error identifying user by token");
   }
+
   @GetMapping()
   public ResponseEntity<PaginatedResponseUtil<Client>> getAllClients(
                                 @RequestParam(defaultValue = "0") int page,
@@ -55,11 +55,17 @@ public class ClientController {
     return ResponseEntity.status(HttpStatus.OK).body(paginatedResponse);
   }
 
-  @GetMapping("/firstName/{firstName}")
-  public ResponseEntity<Object> getClientByFirstName(@PathVariable(value = "firstName") String clientFirstName) {
-    List<Client> clients = clientService.getClientByFirstName(clientFirstName);
+  @GetMapping("/{firstName}/{lastName}")
+  public ResponseEntity<Object> getClientFullName(
+          @PathVariable(value = "firstName") String firstName,
+          @PathVariable(value = "lastName") String lastName) {
+    List<Client> client = clientService.getClientByNameAndLastName(firstName, lastName);
 
-    return ResponseEntity.status(HttpStatus.OK).body(clients);
+    if (client.isEmpty()) {
+      return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Client not found");
+    }
+
+    return ResponseEntity.status(HttpStatus.OK).body(client);
   }
 
   @GetMapping("/{id}")
@@ -71,6 +77,7 @@ public class ClientController {
     }
 
     return ResponseEntity.status(HttpStatus.OK).body(client);
+
   }
 
   @PutMapping("/{id}")
@@ -89,9 +96,10 @@ public class ClientController {
 
       return ResponseEntity.status(HttpStatus.OK).body(client);
 
-    } else {
-      return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Error identifying user by token");
     }
+
+    return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Error identifying user by token");
+
   }
 
   @DeleteMapping("/{id}")
