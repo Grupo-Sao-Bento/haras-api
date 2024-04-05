@@ -42,7 +42,6 @@ public class AuthController {
       var token = tokenService.generateToken((User) auth.getPrincipal());
 
       return ResponseEntity.status(HttpStatus.OK).body(new LoginTokenDTO(token));
-
     } catch (AuthenticationException e) {
       return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("ERROR: Invalid credentials");
     }

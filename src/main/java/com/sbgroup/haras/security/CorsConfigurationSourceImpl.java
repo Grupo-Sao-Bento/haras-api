@@ -20,6 +20,7 @@ public class CorsConfigurationSourceImpl implements CorsConfigurationSource {
     corsConfiguration.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "PUT", "OPTIONS", "PATCH", "DELETE"));
     corsConfiguration.setAllowCredentials(true);
     corsConfiguration.setExposedHeaders(List.of("Authorization", "Access-Control-Allow-Origin", "Access-Control-Allow-Credentials"));
+
     return corsConfiguration;
   }
 

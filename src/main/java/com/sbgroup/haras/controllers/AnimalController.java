@@ -36,8 +36,8 @@ public class AnimalController {
 
     if (user.isPresent()) {
       User userModel = user.get();
-      return ResponseEntity.status(HttpStatus.OK).body(animalService.registerAnimal(animalDTO, userModel));
 
+      return ResponseEntity.status(HttpStatus.OK).body(animalService.registerAnimal(animalDTO, userModel));
     }
     
     return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Error identifying user by token");
