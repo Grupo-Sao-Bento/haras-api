@@ -6,5 +6,12 @@ public record ClientDTO(
   @NotBlank String firstName,
   @NotBlank String lastName,
   @NotBlank String phoneNumber,
-  @NotBlank String email) {
+  @NotBlank String email,
+  String cpf,
+  String cnpj,
+  String address,
+  String city,
+  String state,
+  String country,
+  String cep) {
 }
