@@ -42,8 +42,12 @@ public class Client implements Serializable {
     @JoinColumn
     private User updateBy;
 
+    @Column(nullable = false)
     private String cpf;
+
+    @Column(nullable = false)
     private String cnpj;
+
     private String address;
     private String city;
     private String state;

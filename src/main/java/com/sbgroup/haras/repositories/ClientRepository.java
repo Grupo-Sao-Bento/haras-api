@@ -10,7 +10,10 @@ import java.util.UUID;
 @Repository
 public interface ClientRepository extends JpaRepository<Client, UUID> {
 
-  @Query("SELECT c FROM Client c WHERE c.firstName = :firstName AND c.lastName = :lastName")
-  List<Client> findNameAndLastName(String firstName, String lastName);
+  @Query("SELECT c FROM Client c WHERE c.cpf = :cpf")
+  List<Client> findCpf(String cpf);
+
+  @Query("SELECT c FROM Client c WHERE c.cnpj = :cnpj")
+  List<Client> findCnpj(String cnpj);
 
 }

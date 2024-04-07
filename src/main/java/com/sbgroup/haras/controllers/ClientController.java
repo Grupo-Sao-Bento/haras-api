@@ -55,11 +55,20 @@ public class ClientController {
     return ResponseEntity.status(HttpStatus.OK).body(paginatedResponse);
   }
 
-  @GetMapping("/{firstName}/{lastName}")
-  public ResponseEntity<Object> getClientFullName(
-          @PathVariable(value = "firstName") String firstName,
-          @PathVariable(value = "lastName") String lastName) {
-    List<Client> client = clientService.getClientByNameAndLastName(firstName, lastName);
+  @GetMapping("/cpf/{cpf}")
+  public ResponseEntity<Object> getClientCpf(@PathVariable(value = "cpf") String cpf) {
+    List<Client> client = clientService.getClientByCpf(cpf);
+
+    if (client.isEmpty()) {
+      return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Client not found");
+    }
+
+    return ResponseEntity.status(HttpStatus.OK).body(client);
+  }
+
+  @GetMapping("/cnpj/{cnpj}")
+  public ResponseEntity<Object> getClientCnpj(@PathVariable(value = "cnpj") String cnpj) {
+    List<Client> client = clientService.getClientByCnpj(cnpj);
 
     if (client.isEmpty()) {
       return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Client not found");
