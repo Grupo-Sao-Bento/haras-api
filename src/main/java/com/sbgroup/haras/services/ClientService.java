@@ -52,12 +52,10 @@ public class ClientService {
   }
 
   public List<Client> getClientByCpf(String cpf) {
-
     return clientRepository.findCpf(cpf);
   }
 
   public List<Client> getClientByCnpj(String cnpj) {
-    
     return clientRepository.findCnpj(cnpj);
   }
   
