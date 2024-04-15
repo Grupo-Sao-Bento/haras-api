@@ -1,5 +1,6 @@
 package com.sbgroup.haras.models;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import lombok.*;
 import java.io.Serializable;
@@ -42,18 +43,20 @@ public class Client implements Serializable {
     @JoinColumn
     private User updateBy;
 
-    @Column(nullable = false)
     private String cpf;
-
-    @Column(nullable = false)
     private String cnpj;
-
     private String address;
     private String city;
     private String state;
     private String country;
     private String cep;
     private Timestamp updateAt;
+
+    @JsonProperty(value="isOrganization")
+    private boolean isOrganization;
+
+    private String organizationName;
+
     // TODO: Farm
 
     public Client(String firstName, String lastName, String phoneNumber, String email, Timestamp createdAt, User createdBy) {

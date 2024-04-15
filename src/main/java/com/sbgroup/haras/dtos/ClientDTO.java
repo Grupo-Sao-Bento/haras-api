@@ -7,11 +7,13 @@ public record ClientDTO(
   @NotBlank String lastName,
   @NotBlank String phoneNumber,
   @NotBlank String email,
-  @NotBlank String cpf,
-  @NotBlank String cnpj,
+  String cpf,
+  String cnpj,
   String address,
   String city,
   String state,
   String country,
-  String cep) {
+  String cep,
+  boolean isOrganization,
+  String organizationName){
 }
