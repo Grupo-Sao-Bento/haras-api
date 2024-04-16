@@ -11,5 +11,5 @@ public record FarmDTO(
   @NotBlank String city,
   @NotBlank String state,
   @NotBlank String country,
-  @NotBlank String cep
+  String cep
 ) {}
