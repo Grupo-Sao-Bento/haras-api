@@ -22,7 +22,7 @@ import java.util.UUID;
 @RestController
 @RequestMapping("/animals")
 public class AnimalController {
-  
+
   @Autowired()
   private AnimalService animalService;
 
@@ -34,27 +34,23 @@ public class AnimalController {
     String token = request.getHeader("Authorization").replace("Bearer ", "");
     Optional<User> user = userService.getUserByToken(token);
 
-    if (user.isPresent()) {
-      User userModel = user.get();
+    User userModel = user.get();
 
-      return ResponseEntity.status(HttpStatus.OK).body(animalService.registerAnimal(animalDTO, userModel));
-    }
-    
-    return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Error identifying user by token");
+    return ResponseEntity.status(HttpStatus.OK).body(animalService.registerAnimal(animalDTO, userModel));
+
   }
 
   @GetMapping()
   public ResponseEntity<PaginatedResponseUtil<Animal>> getAllAnimals(
-                                @RequestParam(defaultValue = "0") int page,
-                                @RequestParam(defaultValue = "10") int size ) {
+      @RequestParam(defaultValue = "0") int page,
+      @RequestParam(defaultValue = "10") int size) {
     List<Animal> animals = animalService.getAllAnimals(page, size);
 
     PaginatedResponseUtil<Animal> paginatedResponse = new PaginatedResponseUtil<>(
-      animals,
-      page,
-      animalService.getAnimalsTotalPages(size),
-      animalService.getAnimalsTotalElements()
-    );
+        animals,
+        page,
+        animalService.getAnimalsTotalPages(size),
+        animalService.getAnimalsTotalElements());
 
     return ResponseEntity.status(HttpStatus.OK).body(paginatedResponse);
   }
@@ -79,23 +75,19 @@ public class AnimalController {
 
   @PutMapping("/{id}")
   public ResponseEntity<Object> updateAnimalById(@RequestBody @Valid AnimalDTO animalDto,
-                   @PathVariable(value = "id") UUID animalId, HttpServletRequest request) {
+      @PathVariable(value = "id") UUID animalId, HttpServletRequest request) {
     String token = request.getHeader("Authorization").replace("Bearer ", "");
     Optional<User> user = userService.getUserByToken(token);
 
-    if (user.isPresent()) {
-      User userModel = user.get();
-      Optional<Animal> animalModel = animalService.updateAnimalById(animalDto, animalId, userModel);
+    User userModel = user.get();
+    Optional<Animal> animalModel = animalService.updateAnimalById(animalDto, animalId, userModel);
 
-      if (animalModel.isEmpty()) {
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Animal id not found");
-      }
-
-      return ResponseEntity.status(HttpStatus.OK).body(animalModel);
-
+    if (animalModel.isEmpty()) {
+      return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Animal id not found");
     }
-    
-    return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Error identifying user by token");
+
+    return ResponseEntity.status(HttpStatus.OK).body(animalModel);
+
   }
 
   @DeleteMapping("/{id}")
