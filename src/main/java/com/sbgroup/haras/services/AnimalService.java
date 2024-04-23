@@ -2,6 +2,7 @@ package com.sbgroup.haras.services;
 
 import com.sbgroup.haras.dtos.AnimalDTO;
 import com.sbgroup.haras.models.Animal;
+import com.sbgroup.haras.models.Client;
 import com.sbgroup.haras.models.User;
 import com.sbgroup.haras.repositories.AnimalRepository;
 import com.sbgroup.haras.utils.TimeUtil;
@@ -25,6 +26,9 @@ public class AnimalService {
   @Autowired()
   private AnimalRepository animalRepository;
 
+  @Autowired()
+  private ClientService clientService;
+
   @Transactional()
   public Animal registerAnimal(AnimalDTO animalDTO, User authUser) {
     var newAnimal = new Animal();
@@ -40,6 +44,12 @@ public class AnimalService {
       Animal mother = getAnimalById(animalDTO.mother()).get();
 
       newAnimal.setMother(mother);
+    }
+
+    if (animalDTO.owner() != null) {
+      Client owner = clientService.getClientById(animalDTO.owner()).get();
+
+      newAnimal.setOwner(owner);
     }
 
     newAnimal.setCreatedAt(TimeUtil.getCurrentTimestamp());

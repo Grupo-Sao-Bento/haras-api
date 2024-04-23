@@ -55,13 +55,15 @@ public class Animal implements Serializable {
   @ManyToOne
   private Animal father;
 
+  @ManyToOne
+  private Client owner;
+
   @JsonProperty(value="isAlive")
   private boolean isAlive;
 
   private Timestamp updatedAt;
   private Timestamp birthDate;
   private String registry;
-  private String owner; // TODO: Change type
   private double dailyFee;
   private AnimalBreed breed;
   // TODO: Stays
