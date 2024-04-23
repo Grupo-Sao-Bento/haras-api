@@ -28,8 +28,20 @@ public class AnimalService {
   @Transactional()
   public Animal registerAnimal(AnimalDTO animalDTO, User authUser) {
     var newAnimal = new Animal();
-
     BeanUtils.copyProperties(animalDTO, newAnimal);
+
+    if (animalDTO.father() != null) {
+      Animal father = getAnimalById(animalDTO.father()).get();
+
+      newAnimal.setFather(father);
+    }
+
+    if (animalDTO.mother() != null) {
+      Animal mother = getAnimalById(animalDTO.mother()).get();
+
+      newAnimal.setMother(mother);
+    }
+
     newAnimal.setCreatedAt(TimeUtil.getCurrentTimestamp());
     newAnimal.setCreatedBy(authUser);
 

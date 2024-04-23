@@ -1,6 +1,7 @@
 package com.sbgroup.haras.models;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.sbgroup.haras.enums.AnimalBreed;
 import com.sbgroup.haras.enums.AnimalCoat;
 import com.sbgroup.haras.enums.AnimalGender;
 import com.sbgroup.haras.enums.AnimalType;
@@ -48,6 +49,12 @@ public class Animal implements Serializable {
   @JoinColumn
   private User updatedBy;
 
+  @ManyToOne
+  private Animal mother;
+
+  @ManyToOne
+  private Animal father;
+
   @JsonProperty(value="isAlive")
   private boolean isAlive;
 
@@ -56,8 +63,7 @@ public class Animal implements Serializable {
   private String registry;
   private String owner; // TODO: Change type
   private double dailyFee;
-  // TODO: Dad
-  // TODO: Mom
+  private AnimalBreed breed;
   // TODO: Stays
   // TODO: Procedures
   // TODO: Farm
