@@ -1,5 +1,6 @@
 package com.sbgroup.haras.dtos;
 
+import com.sbgroup.haras.enums.AnimalBreed;
 import com.sbgroup.haras.enums.AnimalCoat;
 import com.sbgroup.haras.enums.AnimalGender;
 import com.sbgroup.haras.enums.AnimalType;
@@ -18,5 +19,6 @@ public record AnimalDTO(
   String registry,
   String owner,
   boolean isAlive,
-  double dailyFee
+  double dailyFee,
+  AnimalBreed breed
 ) {}
