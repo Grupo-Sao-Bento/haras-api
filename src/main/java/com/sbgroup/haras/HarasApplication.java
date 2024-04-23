@@ -20,32 +20,31 @@ public class HarasApplication {
       if (authService.loadUserByUsername("master@email.com") == null) {
 
         UserDTO masterUser = new UserDTO(
-          "master@email.com",
-          "master-user",
-          "master-user",
-          UserRole.MASTER,
-          "master"
-        );
+            "master@email.com",
+            "master-user",
+            "master-user",
+            UserRole.MASTER,
+            "master");
 
         authService.registerUser(masterUser);
       }
 
       System.out.println(
-        """
-          
-          =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
-          
-           CAUTION: Master User registered automatically!
-           
-           LOGIN: master@email.com
-           PASSWORD: master
-           
-           REMOVE METHOD BEFORE RUN IN PRODUCTION:
-           'com.sbgroup.haras/HarasApplication.java:init'
-           
-          =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
-           
-         """);
+          """
+
+               =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+
+                CAUTION: Master User registered automatically!
+
+                LOGIN: master@email.com
+                PASSWORD: master
+
+                REMOVE METHOD BEFORE RUN IN PRODUCTION:
+                'com.sbgroup.haras/HarasApplication.java:init'
+
+               =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+
+              """);
 
     };
   }
