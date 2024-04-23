@@ -37,7 +37,6 @@ public class AnimalController {
     User userModel = user.get();
 
     return ResponseEntity.status(HttpStatus.OK).body(animalService.registerAnimal(animalDTO, userModel));
-
   }
 
   @GetMapping()

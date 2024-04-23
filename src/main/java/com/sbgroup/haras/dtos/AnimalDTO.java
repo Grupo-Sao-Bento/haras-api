@@ -9,6 +9,7 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
 import java.sql.Timestamp;
+import java.util.UUID;
 
 public record AnimalDTO(
   @NotBlank String name,
@@ -20,5 +21,7 @@ public record AnimalDTO(
   String owner,
   boolean isAlive,
   double dailyFee,
-  AnimalBreed breed
+  AnimalBreed breed,
+  UUID father,
+  UUID mother
 ) {}

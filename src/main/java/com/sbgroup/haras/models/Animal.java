@@ -49,6 +49,12 @@ public class Animal implements Serializable {
   @JoinColumn
   private User updatedBy;
 
+  @ManyToOne
+  private Animal mother;
+
+  @ManyToOne
+  private Animal father;
+
   @JsonProperty(value="isAlive")
   private boolean isAlive;
 
@@ -58,8 +64,6 @@ public class Animal implements Serializable {
   private String owner; // TODO: Change type
   private double dailyFee;
   private AnimalBreed breed;
-  // TODO: Dad
-  // TODO: Mom
   // TODO: Stays
   // TODO: Procedures
   // TODO: Farm
