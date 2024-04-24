@@ -18,7 +18,7 @@ public record AnimalDTO(
   @NotNull AnimalCoat coat,
   Timestamp birthDate,
   String registry,
-  String owner,
+  UUID owner,
   boolean isAlive,
   double dailyFee,
   AnimalBreed breed,
