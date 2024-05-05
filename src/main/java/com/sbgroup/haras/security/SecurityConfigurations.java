@@ -35,6 +35,8 @@ public class SecurityConfigurations {
         .requestMatchers(HttpMethod.POST, "/auth/login").permitAll()
         .requestMatchers(HttpMethod.GET, "/users").hasRole("MASTER")
         .requestMatchers(HttpMethod.PUT, "/users").hasRole("MASTER")
+        .requestMatchers(HttpMethod.GET, "/farms").hasRole("MASTER")
+        .requestMatchers(HttpMethod.PUT, "/farms").hasRole("MASTER")
         .requestMatchers(HttpMethod.PUT, "/animals").hasRole("ADMIN")
         .anyRequest().authenticated())
       .addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class)
