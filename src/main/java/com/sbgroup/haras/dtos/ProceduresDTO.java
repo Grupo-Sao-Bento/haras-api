@@ -1,6 +1,6 @@
 package com.sbgroup.haras.dtos;
 
-import java.sql.Timestamp;
+import java.time.LocalDate;
 
-public record ProceduresDTO(String description, String category, Timestamp data) {
+public record ProceduresDTO(String description, String category, LocalDate data) {
 }

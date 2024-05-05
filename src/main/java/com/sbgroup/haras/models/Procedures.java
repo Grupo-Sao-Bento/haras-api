@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.sql.Timestamp;
+import java.time.LocalDate;
 import java.util.UUID;
 
 @Getter
@@ -23,10 +24,17 @@ public class Procedures {
 
     private String description;
     private String category;
-    private Timestamp data;
+    private LocalDate data;
+    private Timestamp updateAt;
 
     @ManyToOne
     @JoinColumn(nullable = false)
     private User ResponsibleName;
 
+    @ManyToOne
+    @JoinColumn
+    private User updateBy;
+
+    @Column(nullable = false)
+    private Timestamp createdAt;
 }

@@ -27,7 +27,7 @@ public class ProceduresService {
     public Procedures registerProcedures(ProceduresDTO proceduresDTO, User authUser) {
         var newProcedures = new Procedures();
         BeanUtils.copyProperties(proceduresDTO, newProcedures);
-        newProcedures.setData(TimeUtil.getCurrentTimestamp());
+        newProcedures.setCreatedAt(TimeUtil.getCurrentTimestamp());
         newProcedures.setResponsibleName(authUser);
 
         return proceduresRepository.save(newProcedures);
@@ -43,8 +43,8 @@ public class ProceduresService {
 
         var updatedProcedures = procedures.get();
         BeanUtils.copyProperties(proceduresDTO, updatedProcedures);
-        updatedProcedures.setData(TimeUtil.getCurrentTimestamp());
-        updatedProcedures.setResponsibleName(authUser);
+        updatedProcedures.setUpdateAt(TimeUtil.getCurrentTimestamp());
+        updatedProcedures.setUpdateBy(authUser);
 
         return Optional.of(proceduresRepository.save(updatedProcedures));
     }
