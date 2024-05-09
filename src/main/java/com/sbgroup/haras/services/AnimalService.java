@@ -86,7 +86,7 @@ public class AnimalService {
   }
 
   @Transactional()
-  public Optional<Animal> updateAnimalById(AnimalDTO animalDto, UUID animalId, User authUser) {
+  public Optional<Animal> updateAnimalById(AnimalDTO animalDTO, UUID animalId, User authUser) {
     var animalModel = animalRepository.findById(animalId);
 
     if (animalModel.isEmpty()) {
@@ -94,9 +94,27 @@ public class AnimalService {
     }
 
     var updatedAnimal = animalModel.get();
-    BeanUtils.copyProperties(animalDto, updatedAnimal);
+    BeanUtils.copyProperties(animalDTO, updatedAnimal);
     updatedAnimal.setUpdatedAt(TimeUtil.getCurrentTimestamp());
     updatedAnimal.setUpdatedBy(authUser);
+
+    if (animalDTO.father() != null) {
+      Animal father = getAnimalById(animalDTO.father()).get();
+
+      updatedAnimal.setFather(father);
+    }
+
+    if (animalDTO.mother() != null) {
+      Animal mother = getAnimalById(animalDTO.mother()).get();
+
+      updatedAnimal.setMother(mother);
+    }
+
+    if (animalDTO.owner() != null) {
+      Client owner = clientService.getClientById(animalDTO.owner()).get();
+
+      updatedAnimal.setOwner(owner);
+    }
 
     return Optional.of(animalRepository.save(updatedAnimal));
   }
