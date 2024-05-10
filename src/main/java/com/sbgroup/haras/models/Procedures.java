@@ -37,4 +37,8 @@ public class Procedures {
 
     @Column(nullable = false)
     private Timestamp createdAt;
+
+    @ManyToOne
+    @JoinColumn(nullable = false)
+    private Animal animal;
 }

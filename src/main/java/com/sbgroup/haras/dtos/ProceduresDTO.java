@@ -1,6 +1,9 @@
 package com.sbgroup.haras.dtos;
 
-import java.time.LocalDate;
+import jakarta.validation.constraints.NotNull;
 
-public record ProceduresDTO(String description, String category, LocalDate data) {
+import java.time.LocalDate;
+import java.util.UUID;
+
+public record ProceduresDTO(String description, String category, LocalDate data, @NotNull UUID animalId) {
 }

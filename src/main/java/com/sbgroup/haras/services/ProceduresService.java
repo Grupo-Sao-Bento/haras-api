@@ -1,8 +1,10 @@
 package com.sbgroup.haras.services;
 
 import com.sbgroup.haras.dtos.ProceduresDTO;
+import com.sbgroup.haras.models.Animal;
 import com.sbgroup.haras.models.Procedures;
 import com.sbgroup.haras.models.User;
+import com.sbgroup.haras.repositories.AnimalRepository;
 import com.sbgroup.haras.repositories.ProceduresRepository;
 import com.sbgroup.haras.utils.TimeUtil;
 import org.springframework.beans.BeanUtils;
@@ -23,12 +25,18 @@ public class ProceduresService {
     @Autowired
     private ProceduresRepository proceduresRepository;
 
+    @Autowired
+    private AnimalRepository animalRepository;
+
     @Transactional
-    public Procedures registerProcedures(ProceduresDTO proceduresDTO, User authUser) {
+    public Procedures registerProcedures(ProceduresDTO proceduresDTO, User authUser, UUID animalId) {
         var newProcedures = new Procedures();
         BeanUtils.copyProperties(proceduresDTO, newProcedures);
         newProcedures.setCreatedAt(TimeUtil.getCurrentTimestamp());
         newProcedures.setResponsibleName(authUser);
+
+        Optional<Animal> animal = animalRepository.findById(animalId);
+        newProcedures.setAnimal(animal.get());
 
         return proceduresRepository.save(newProcedures);
     }

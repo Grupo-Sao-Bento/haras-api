@@ -34,7 +34,7 @@ public class ProceduresController {
 
         User userModel = user.get();
 
-        return ResponseEntity.status(HttpStatus.OK).body(proceduresService.registerProcedures(proceduresDTO, userModel));
+        return ResponseEntity.status(HttpStatus.OK).body(proceduresService.registerProcedures(proceduresDTO, userModel, proceduresDTO.animalId()));
 
     }
 
