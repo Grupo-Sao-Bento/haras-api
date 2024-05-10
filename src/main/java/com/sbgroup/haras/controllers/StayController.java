@@ -34,8 +34,7 @@ public class StayController {
 
         User userModel = user.get();
 
-        return ResponseEntity.status(HttpStatus.OK).body(stayService.createStay(stayDTO, userModel));
-
+        return ResponseEntity.status(HttpStatus.OK).body(stayService.createStay(stayDTO, userModel, stayDTO.animalId()));
     }
 
     @GetMapping()

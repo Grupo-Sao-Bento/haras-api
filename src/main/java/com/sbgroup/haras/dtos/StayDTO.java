@@ -1,6 +1,10 @@
 package com.sbgroup.haras.dtos;
 
-import java.time.LocalDate;
+import jakarta.validation.constraints.NotNull;
 
-public record StayDTO(LocalDate start, LocalDate end) {
+import java.time.LocalDate;
+import java.util.UUID;
+
+public record StayDTO(LocalDate start, LocalDate end, @NotNull UUID animalId) {
 }
+

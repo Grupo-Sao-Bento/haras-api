@@ -1,8 +1,10 @@
 package com.sbgroup.haras.services;
 
 import com.sbgroup.haras.dtos.StayDTO;
+import com.sbgroup.haras.models.Animal;
 import com.sbgroup.haras.models.Stay;
 import com.sbgroup.haras.models.User;
+import com.sbgroup.haras.repositories.AnimalRepository;
 import com.sbgroup.haras.repositories.StayRepository;
 import com.sbgroup.haras.utils.TimeUtil;
 import org.springframework.beans.BeanUtils;
@@ -23,11 +25,18 @@ public class StayService {
     @Autowired
     private StayRepository stayRepository;
 
-    public Stay createStay(StayDTO stayDTO, User authUser) {
+    @Autowired
+    private AnimalRepository animalRepository;
+
+    @Transactional
+    public Stay createStay(StayDTO stayDTO, User authUser, UUID animalId) {
         var newStay = new Stay();
         BeanUtils.copyProperties(stayDTO, newStay);
         newStay.setCreatedAt(TimeUtil.getCurrentTimestamp());
         newStay.setResponsibleName(authUser);
+
+        Optional<Animal> animal = animalRepository.findById(animalId);
+        newStay.setAnimal(animal.get());
 
         return stayRepository.save(newStay);
     }

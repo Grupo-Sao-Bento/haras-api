@@ -36,4 +36,9 @@ public class Stay {
     @ManyToOne
     @JoinColumn
     private User updateBy;
+
+    @ManyToOne
+    @JoinColumn(nullable = false)
+    private Animal animal;
+
 }
