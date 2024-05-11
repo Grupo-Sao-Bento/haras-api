@@ -42,7 +42,7 @@ public class StayService {
     }
 
     @Transactional
-    public Optional<Stay> updateStayById(StayDTO stayDTO, UUID stayId, User authUser) {
+    public Optional<Stay> updateStayById(StayDTO stayDTO, UUID stayId, User authUser, UUID animalId) {
         var stay = stayRepository.findById(stayId);
 
         if (stay.isEmpty()) {
@@ -53,6 +53,9 @@ public class StayService {
         BeanUtils.copyProperties(stayDTO, updatedStay);
         updatedStay.setUpdateAt(TimeUtil.getCurrentTimestamp());
         updatedStay.setUpdateBy(authUser);
+
+        Optional<Animal> animal = animalRepository.findById(animalId);
+        updatedStay.setAnimal(animal.get());
 
         return Optional.of(stayRepository.save(updatedStay));
     }

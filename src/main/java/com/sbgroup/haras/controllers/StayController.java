@@ -72,7 +72,7 @@ public class StayController {
 
         User userModel = user.get();
 
-        Optional<Stay> stay = stayService.updateStayById(stayDTO, stayId, userModel);
+        Optional<Stay> stay = stayService.updateStayById(stayDTO, stayId, userModel, stayDTO.animalId());
 
         if (stay.isEmpty()) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Stay id not found");
