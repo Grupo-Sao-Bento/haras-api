@@ -42,7 +42,7 @@ public class ProceduresService {
     }
 
     @Transactional
-    public Optional<Procedures> updateProcedureById(ProceduresDTO proceduresDTO, UUID proceduresId, User authUser) {
+    public Optional<Procedures> updateProcedureById(ProceduresDTO proceduresDTO, UUID proceduresId, User authUser, UUID animalId) {
         var procedures = proceduresRepository.findById(proceduresId);
 
         if (procedures.isEmpty()) {
@@ -53,6 +53,9 @@ public class ProceduresService {
         BeanUtils.copyProperties(proceduresDTO, updatedProcedures);
         updatedProcedures.setUpdateAt(TimeUtil.getCurrentTimestamp());
         updatedProcedures.setUpdateBy(authUser);
+
+        Optional<Animal> animal = animalRepository.findById(animalId);
+        updatedProcedures.setAnimal(animal.get());
 
         return Optional.of(proceduresRepository.save(updatedProcedures));
     }

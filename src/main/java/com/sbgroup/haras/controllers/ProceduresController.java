@@ -73,7 +73,7 @@ public class ProceduresController {
 
         User userModel = user.get();
 
-        Optional<Procedures> procedure = proceduresService.updateProcedureById(proceduresDTO, procedureId, userModel);
+        Optional<Procedures> procedure = proceduresService.updateProcedureById(proceduresDTO, procedureId, userModel, proceduresDTO.animalId());
 
         if (procedure.isEmpty()) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Procedure id not found");
