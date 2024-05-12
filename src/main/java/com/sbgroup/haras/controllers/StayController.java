@@ -34,7 +34,7 @@ public class StayController {
 
         User userModel = user.get();
 
-        return ResponseEntity.status(HttpStatus.OK).body(stayService.createStay(stayDTO, userModel, stayDTO.animalId()));
+        return ResponseEntity.status(HttpStatus.OK).body(stayService.createStay(stayDTO, userModel, stayDTO.animal()));
     }
 
     @GetMapping()
@@ -72,7 +72,7 @@ public class StayController {
 
         User userModel = user.get();
 
-        Optional<Stay> stay = stayService.updateStayById(stayDTO, stayId, userModel, stayDTO.animalId());
+        Optional<Stay> stay = stayService.updateStayById(stayDTO, stayId, userModel, stayDTO.animal());
 
         if (stay.isEmpty()) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Stay id not found");
