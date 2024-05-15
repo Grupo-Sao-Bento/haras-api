@@ -9,6 +9,7 @@ import com.sbgroup.haras.services.UserService;
 import com.sbgroup.haras.utils.PaginatedResponseUtil;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -91,13 +92,18 @@ public class AnimalController {
 
   @DeleteMapping("/{id}")
   public ResponseEntity<Object> deleteAnimalById(@PathVariable(value = "id") UUID animalId) {
-    Optional<Animal> animalModel = animalService.deleteAnimalById(animalId);
+    try {
+      Optional<Animal> animalModel = animalService.deleteAnimalById(animalId);
 
-    if (animalModel.isEmpty()) {
-      return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Animal id not found");
+      if (animalModel.isEmpty()) {
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Animal id not found");
+      }
+
+      return ResponseEntity.status(HttpStatus.OK).body("Animal deleted successfuly");
+
+    } catch (DataIntegrityViolationException ex) {
+      return ResponseEntity.status(HttpStatus.CONFLICT).body("Animal cannot be deleted because it has an active DB relationship");
     }
-
-    return ResponseEntity.status(HttpStatus.OK).body("Animal deleted successfuly");
   }
 
 }
