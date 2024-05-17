@@ -36,6 +36,7 @@ public class SecurityConfigurations {
         .requestMatchers(HttpMethod.GET, "/users").hasRole("MASTER")
         .requestMatchers(HttpMethod.PUT, "/users").hasRole("MASTER")
         .requestMatchers(HttpMethod.PUT, "/animals").hasRole("ADMIN")
+              .requestMatchers("/v3/api-docs/**", "/swagger-ui.html", "/swagger-ui/**").permitAll()
         .anyRequest().authenticated())
       .addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class)
       .build();
@@ -50,5 +51,5 @@ public class SecurityConfigurations {
   public PasswordEncoder passwordEncoder() {
     return new BCryptPasswordEncoder();
   }
-  
+
 }
