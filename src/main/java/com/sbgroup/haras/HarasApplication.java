@@ -13,7 +13,6 @@ import org.springframework.context.annotation.Bean;
 @SpringBootApplication
 public class HarasApplication {
 
-  // TODO: Remove in production
   @Bean
   public CommandLineRunner init(@Autowired AuthService authService) {
     return args -> {
